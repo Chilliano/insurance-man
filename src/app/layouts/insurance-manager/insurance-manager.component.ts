@@ -33,25 +33,19 @@ export class InsuranceManagerComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  uploadAllDocs() {
-    console.log('upload all docs with db ', this.db);
-    const productRef = this.db.collection('products');
+  // uploadAllDocs() {
+  //   console.log('upload all docs with db ', this.db);
+  //   const productRef = this.db.collection('products');
 
-    // var setWithMerge = productRef.set(
-    //   {
-    //     capital: true
-    //   },
-    //   { merge: true }
-    // );
-    ELEMENT_DATA.forEach(product => {
-      productRef
-        .add(product)
-        .then(function(docRef) {
-          console.log('Document written with ID: ', docRef.id);
-        })
-        .catch(function(error) {
-          console.error('Error adding document: ', error);
-        });
-    });
-  }
+  //   ELEMENT_DATA.forEach(product => {
+  //     productRef
+  //       .add(product)
+  //       .then(function(docRef) {
+  //         console.log('Document written with ID: ', docRef.id);
+  //       })
+  //       .catch(function(error) {
+  //         console.error('Error adding document: ', error);
+  //       });
+  //   });
+  // }
 }
