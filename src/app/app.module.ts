@@ -12,6 +12,9 @@ import { HomeComponent } from './layouts/home/home.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance-manager.component';
 import { NoAccessComponent } from './layouts/no-access/no-access.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatSliderModule } from '@angular/material/slider';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -31,9 +34,11 @@ const config = {
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
-    AngularFireAuthModule // firestore
+    AngularFireAuthModule,
+    BrowserAnimationsModule, // firestore
     // AngularFireAuthModule, // auth
     // AngularFireStorageModule // storage
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
