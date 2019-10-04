@@ -1,0 +1,30 @@
+[debug] [2019-10-04T20:15:59.676Z] ----------------------------------------------------------------------
+[debug] [2019-10-04T20:15:59.680Z] Command:       /usr/bin/node /usr/bin/firebase emulators:start --only firestore
+[debug] [2019-10-04T20:15:59.680Z] CLI Version:   7.4.0
+[debug] [2019-10-04T20:15:59.680Z] Platform:      linux
+[debug] [2019-10-04T20:15:59.680Z] Node Version:  v10.16.3
+[debug] [2019-10-04T20:15:59.681Z] Time:          Fri Oct 04 2019 22:15:59 GMT+0200 (Central European Summer Time)
+[debug] [2019-10-04T20:15:59.681Z] ----------------------------------------------------------------------
+[debug] 
+[warn] ⚠  Could not find config (firebase.json) so using defaults.
+[info] i  Starting emulators: ["firestore"]
+[warn] ⚠  No Firestore rules file specified in firebase.json, using default rules.
+[info] i  firestore: Serving WebChannel traffic on at http://localhost:8081
+[debug] [2019-10-04T20:15:59.710Z] Ignoring unsupported arg: projectId
+[debug] [2019-10-04T20:15:59.710Z] Ignoring unsupported arg: auto_download
+[debug] [2019-10-04T20:15:59.710Z] Starting emulator firestore with command {"binary":"java","args":["-Duser.language=en","-jar","/home/cillian/.cache/firebase/emulators/cloud-firestore-emulator-v1.8.4.jar","--host","localhost","--port",8080,"--webchannel_port",8081],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator"]}
+[info] i  firestore: Emulator logging to firestore-debug.log
+[debug] [2019-10-04T20:16:01.000Z] API endpoint: http://
+[debug] [2019-10-04T20:16:01.001Z] localhost:8080
+WebChannel endpoint: http://localhost:8081
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+
+[debug] [2019-10-04T20:16:01.001Z] Dev App Server is now running.
+
+
+[info] ✔  firestore: Emulator started at http://localhost:8080
+[info] i  firestore: For testing set FIRESTORE_EMULATOR_HOST=localhost:8080
+[info] ✔  All emulators started, it is now safe to connect.

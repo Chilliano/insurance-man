@@ -10,6 +10,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './layouts/home/home.component';
 // // import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance-manager.component';
+import { NoAccessComponent } from './layouts/no-access/no-access.component';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -23,7 +25,7 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, InsuranceManagerComponent, NoAccessComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
