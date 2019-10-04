@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomeComponent } from './layouts/home/home.component';
-// // import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance-manager.component';
 import { NoAccessComponent } from './layouts/no-access/no-access.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatSliderModule } from '@angular/material/slider';
+
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
+  MatSortModule, MatTableModule } from "@angular/material";
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -37,8 +39,12 @@ const config = {
     AngularFireAuthModule,
     BrowserAnimationsModule, // firestore
     // AngularFireAuthModule, // auth
-    // AngularFireStorageModule // storage
-    MatSliderModule
+    AngularFireStorageModule, // storage
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
