@@ -7,8 +7,9 @@ import { AppComponent } from './app.component';
 // 1. Import the libs you need
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { HomeComponent } from './layouts/home/home.component';
 // // import { AngularFireStorageModule } from '@angular/fire/storage';
-// // import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -22,12 +23,13 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule // firestore
+    AngularFirestoreModule,
+    AngularFireAuthModule // firestore
     // AngularFireAuthModule, // auth
     // AngularFireStorageModule // storage
   ],
