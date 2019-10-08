@@ -25,6 +25,11 @@ export class ProductsDataTableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = this.applyFilter();
     this.table.dataSource = this.dataSource;
+  }
+
+  applyFilter(filterValue: string) {
+    return filterValue.trim().toLowerCase();
   }
 }

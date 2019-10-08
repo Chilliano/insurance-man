@@ -17,7 +17,7 @@ export class ProductsDataTableDataSource extends DataSource<ProductModel> {
   data: ProductModel[] = PRODUCT_DATA;
   paginator: MatPaginator;
   sort: MatSort;
-
+  filter = '';
   constructor() {
     super();
   }
@@ -33,7 +33,7 @@ export class ProductsDataTableDataSource extends DataSource<ProductModel> {
     const dataMutations = [
       observableOf(this.data),
       this.paginator.page,
-      this.sort.sortChange
+      this.sort.sortChange,
     ];
 
     return merge(...dataMutations).pipe(
