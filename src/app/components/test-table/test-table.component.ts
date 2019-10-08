@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 import { InsuranceProducts } from 'app/components/product-data-table/InsuranceProducts.json';
 
 @Component({
@@ -9,6 +9,8 @@ import { InsuranceProducts } from 'app/components/product-data-table/InsurancePr
   styleUrls: ['./test-table.component.scss']
 })
 export class TestTableComponent implements OnInit {
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+
   products = InsuranceProducts;
 
   nameFilter = new FormControl('');
@@ -48,6 +50,10 @@ export class TestTableComponent implements OnInit {
       this.filterValues.price = price;
       // this.dataSource.filter = JSON.stringify(this.filterValues);
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onSearch() {
