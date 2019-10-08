@@ -15,13 +15,15 @@ import { NoAccessComponent } from './layouts/no-access/no-access.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {
-  MatInputModule,
-  MatPaginatorModule,
-  MatProgressSpinnerModule,
-  MatSortModule,
-  MatTableModule
-} from '@angular/material';
+// import {
+//   MatInputModule,
+//   MatPaginatorModule,
+//   MatProgressSpinnerModule,
+//   MatSortModule,
+//   MatTableModule
+// } from '@angular/material';
+import { MaterialModule } from './material.module';
+
 import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 import { TestTableComponent } from './components/test-table/test-table.component';
 const config = {
@@ -48,11 +50,7 @@ const config = {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatProgressSpinnerModule,
+    MaterialModule,
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
