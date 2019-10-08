@@ -56,7 +56,10 @@ export class TestTableComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
 
+  onRowClicked(r) {
+    console.log('row received', r);
   }
 
   onSearch() {
