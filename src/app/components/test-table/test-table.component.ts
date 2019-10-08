@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { InsuranceProducts } from 'app/components/product-data-table/InsuranceProducts.json';
 
 @Component({
@@ -10,6 +10,7 @@ import { InsuranceProducts } from 'app/components/product-data-table/InsurancePr
 })
 export class TestTableComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   products = InsuranceProducts;
 
@@ -54,6 +55,8 @@ export class TestTableComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
   }
 
   onSearch() {
