@@ -3,13 +3,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProductModel } from 'app/models/product.model';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'app-select-modal',
+  templateUrl: './select-modal.component.html',
+  styleUrls: ['./select-modal.component.scss']
 })
-export class ModalComponent implements OnInit {
+export class SelectModalComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<ModalComponent>,
+    public dialogRef: MatDialogRef<SelectModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProductModel
   ) {}
 

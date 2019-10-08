@@ -9,7 +9,8 @@ import {
   MAT_DIALOG_DATA
 } from '@angular/material';
 import { InsuranceProducts } from 'app/components/test-table/InsuranceProducts.json.js';
-import { ModalComponent } from 'app/modal/modal.component';
+import { SelectModalComponent } from 'app/modals/select-modal/select-modal.component';
+import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 
 @Component({
   selector: 'app-test-table',
@@ -73,6 +74,10 @@ export class TestTableComponent implements OnInit {
     this.openConfirmDialog(r);
   }
 
+  onDisplayList() {
+    this.openSelectDialog();
+  }
+
   onSearch() {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
@@ -94,7 +99,7 @@ export class TestTableComponent implements OnInit {
   }
 
   openConfirmDialog(row): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open(SelectModalComponent, {
       width: '250px',
       data: row
     });
@@ -104,6 +109,22 @@ export class TestTableComponent implements OnInit {
         return;
       }
       this.favourites.push(result);
+    });
+    console.log('this.favourites is ', this.favourites);
+  }
+
+  openSelectDialog(): void {
+    const dialogRef = this.dialog.open(ListModalComponent, {
+      width: '250px',
+      data: this.favourites
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      console.log('results are ', result);
+      // this.favourites.push(result);
     });
     console.log('this.favourites is ', this.favourites);
   }

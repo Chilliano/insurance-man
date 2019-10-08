@@ -18,7 +18,8 @@ import { MaterialModule } from './material.module';
 
 import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 import { TestTableComponent } from './components/test-table/test-table.component';
-import { ModalComponent } from './modal/modal.component';
+import { SelectModalComponent } from 'app/modals/select-modal/select-modal.component';
+import { ListModalComponent } from './modals/list-modal/list-modal.component';
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
   authDomain: 'insurance-man.firebaseapp.com',
@@ -38,7 +39,8 @@ const config = {
     NoAccessComponent,
     ProductDataTableComponent,
     TestTableComponent,
-    ModalComponent
+    SelectModalComponent,
+    ListModalComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ const config = {
     ReactiveFormsModule
   ],
   providers: [],
-  entryComponents: [ModalComponent],
+  entryComponents: [SelectModalComponent, ListModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
