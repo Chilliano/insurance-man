@@ -21,9 +21,7 @@ import {
   MatSortModule,
   MatTableModule
 } from '@angular/material';
-import { DataTableComponent } from './components/data-table/data-table.component';
-import { ProductsDataTableComponent } from './components/products-data-table/products-data-table.component';
-
+import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
   authDomain: 'insurance-man.firebaseapp.com',
@@ -41,8 +39,7 @@ const config = {
     HomeComponent,
     InsuranceManagerComponent,
     NoAccessComponent,
-    DataTableComponent,
-    ProductsDataTableComponent,
+    ProductDataTableComponent,
   ],
   imports: [
     BrowserModule,

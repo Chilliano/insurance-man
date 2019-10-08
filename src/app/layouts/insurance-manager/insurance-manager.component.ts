@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InsuranceProducts } from '../../components/data-table/InsuranceProducts.json.js';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { ProductsService } from 'app/services/products.service';
 
 @Component({
