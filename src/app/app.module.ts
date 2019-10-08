@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance-manager.component';
 import { NoAccessComponent } from './layouts/no-access/no-access.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatInputModule,
@@ -22,6 +23,7 @@ import {
   MatTableModule
 } from '@angular/material';
 import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
+import { TestTableComponent } from './components/test-table/test-table.component';
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
   authDomain: 'insurance-man.firebaseapp.com',
@@ -40,6 +42,7 @@ const config = {
     InsuranceManagerComponent,
     NoAccessComponent,
     ProductDataTableComponent,
+    TestTableComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,9 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InsuranceProducts } from '../../components/data-table/InsuranceProducts.json.js';
 import { ProductsService } from 'app/services/products.service';
-
 @Component({
   selector: 'app-insurance-manager',
   templateUrl: './insurance-manager.component.html',
