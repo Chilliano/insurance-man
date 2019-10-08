@@ -22,6 +22,7 @@ import {
   MatTableModule
 } from '@angular/material';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { ProductsDataTableComponent } from './components/products-data-table/products-data-table.component';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -41,6 +42,7 @@ const config = {
     InsuranceManagerComponent,
     NoAccessComponent,
     DataTableComponent,
+    ProductsDataTableComponent,
   ],
   imports: [
     BrowserModule,

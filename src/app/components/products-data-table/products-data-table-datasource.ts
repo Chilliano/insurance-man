@@ -3,18 +3,17 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { ProductModel } from 'app/models/product.model';
-// TODO: Replace this with your own data model type
 import { InsuranceProducts } from './InsuranceProducts.json';
-// TODO: replace this with real data from your application
+import { ProductModel } from 'app/models/product.model';
+
 const PRODUCT_DATA: ProductModel[] = InsuranceProducts;
 
 /**
- * Data source for the DataTable view. This class should
+ * Data source for the ProductsDataTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DataTableDataSource extends DataSource<ProductModel> {
+export class ProductsDataTableDataSource extends DataSource<ProductModel> {
   data: ProductModel[] = PRODUCT_DATA;
   paginator: MatPaginator;
   sort: MatSort;
@@ -72,13 +71,13 @@ export class DataTableDataSource extends DataSource<ProductModel> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'name':
-          return compare(a.name, b.name, isAsc);
+          return compare(a.name.toUpperCase(), b.name.toUpperCase(), isAsc);
         case 'id':
           return compare(+a.id, +b.id, isAsc);
         case 'kind':
-          return compare(a.kind, b.kind, isAsc);
+          return compare(a.kind.toUpperCase(), b.kind.toUpperCase(), isAsc);
         case 'brand':
-          return compare(a.brand, b.brand, isAsc);
+          return compare(a.brand.toUpperCase(), b.brand.toUpperCase(), isAsc);
         case 'price':
           return compare(+a.price, +b.price, isAsc);
         default:

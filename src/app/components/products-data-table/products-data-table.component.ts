@@ -2,25 +2,24 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { DataTableDataSource } from './data-table-datasource';
+import { ProductsDataTableDataSource } from './products-data-table-datasource';
 import { ProductModel } from 'app/models/product.model';
 @Component({
-  selector: 'app-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.scss']
+  selector: 'app-products-data-table',
+  templateUrl: './products-data-table.component.html',
+  styleUrls: ['./products-data-table.component.scss']
 })
-export class DataTableComponent implements AfterViewInit, OnInit {
+export class ProductsDataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatTable, { static: false }) table: MatTable<ProductModel>;
-  dataSource: DataTableDataSource;
+  dataSource: ProductsDataTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'id', 'kind', 'brand', 'price'];
 
   ngOnInit() {
-    this.dataSource = new DataTableDataSource();
-    console.log('datasource is ', this.dataSource);
+    this.dataSource = new ProductsDataTableDataSource();
   }
 
   ngAfterViewInit() {
