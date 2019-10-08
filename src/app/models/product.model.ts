@@ -1,11 +1,11 @@
 export interface ProductModel {
-  'Kind-image': 'kind_work.png';
-  brand: 'Zurich';
-  'brand-image': 'brand_zurich.png';
-  id: '31';
-  kind: 'Trabajo';
-  name: 'Work sweet work';
-  price: '120';
+  'Kind-image': string;
+  brand: string;
+  'brand-image': string;
+  id: string;
+  kind: string;
+  name: string;
+  price: string;
 }
 
 // displayedColumns = ['name', 'id', 'kind', 'brand', 'price'];
