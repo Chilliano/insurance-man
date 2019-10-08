@@ -12,6 +12,7 @@ export interface Product {
   brand: string;
   kind: string;
   price: string;
+  
 }
 
 const ELEMENT_DATA: Product[] = InsuranceProducts;

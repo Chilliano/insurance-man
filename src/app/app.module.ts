@@ -21,10 +21,6 @@ import {
   MatSortModule,
   MatTableModule
 } from '@angular/material';
-import { EditDialogComponent } from 'app/components/edit-dialog/edit-dialog.component';
-import { DataTableComponent } from 'app/components/data-table/data-table.component';
-import { ProductDataSourceComponent } from './components/product-data-source/product-data-source.component';
-import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -43,10 +39,6 @@ const config = {
     HomeComponent,
     InsuranceManagerComponent,
     NoAccessComponent,
-    EditDialogComponent,
-    DataTableComponent,
-    ProductDataSourceComponent,
-    ProductDataTableComponent
   ],
   imports: [
     BrowserModule,

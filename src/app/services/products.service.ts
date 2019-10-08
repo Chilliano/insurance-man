@@ -5,16 +5,21 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class ProductsService {
+  constructor(private afs: AngularFirestore) {}
 
-  constructor(private afs: AngularFirestore) { }
- 
   addProduct(productData) {
-    this.afs.collection('products').add(productData).then(() => {
-      console.log('Done');
-    })
+    this.afs
+      .collection('products')
+      .add(productData)
+      .then(() => {
+        console.log('Done');
+      });
   }
- 
+
   getProducts() {
-    return this.afs.collection('products', ref => ref.orderBy('name')).valueChanges();
+    const result = this.afs
+      .collection('products', ref => ref.orderBy('name'))
+      .valueChanges();  
+    return result;
   }
 }
