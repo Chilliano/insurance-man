@@ -21,6 +21,7 @@ import {
   MatSortModule,
   MatTableModule
 } from '@angular/material';
+import { ProductDataTableComponent } from './product-data-table/product-data-table.component';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -39,6 +40,7 @@ const config = {
     HomeComponent,
     InsuranceManagerComponent,
     NoAccessComponent,
+    ProductDataTableComponent,
   ],
   imports: [
     BrowserModule,
