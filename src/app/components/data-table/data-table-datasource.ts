@@ -6,7 +6,6 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { ProductModel } from 'app/models/product.model';
 // TODO: Replace this with your own data model type
 
-
 // TODO: replace this with real data from your application
 const PRODUCT_DATA: ProductModel[] = [
   {
@@ -372,8 +371,15 @@ export class DataTableDataSource extends DataSource<ProductModel> {
       switch (this.sort.active) {
         case 'name':
           return compare(a.name, b.name, isAsc);
-        case 'id':
-          return compare(+a.id, +b.id, isAsc);
+        // case 'id':
+        //   return compare(+a.id, +b.id, isAsc);
+        // case 'kind':
+        //   return compare(+a.kind, +b.kind, isAsc);
+        // case 'brand':
+        //   return compare(+a.brand, +b.brand, isAsc);
+        // case 'price':
+        //   return compare(+a.price, +b.price, isAsc);
+
         default:
           return 0;
       }
