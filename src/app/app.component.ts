@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class AppComponent {
   title = 'insurance-man';
-  constructor(private db: AngularFirestore) {
-    const alerts = db.collection('alerts').valueChanges();
-    alerts.subscribe(console.log);
+  constructor() {
+  
   }
 }

@@ -14,9 +14,17 @@ import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance
 import { NoAccessComponent } from './layouts/no-access/no-access.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
-  MatSortModule, MatTableModule } from "@angular/material";
+import {
+  MatInputModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
+import { EditDialogComponent } from 'app/components/edit-dialog/edit-dialog.component';
+import { DataTableComponent } from 'app/components/data-table/data-table.component';
+import { ProductDataSourceComponent } from './components/product-data-source/product-data-source.component';
+import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -30,21 +38,29 @@ const config = {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, InsuranceManagerComponent, NoAccessComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    InsuranceManagerComponent,
+    NoAccessComponent,
+    EditDialogComponent,
+    DataTableComponent,
+    ProductDataSourceComponent,
+    ProductDataTableComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(config),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    BrowserAnimationsModule, // firestore
-    // AngularFireAuthModule, // auth
-    AngularFireStorageModule, // storage
+    BrowserAnimationsModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
