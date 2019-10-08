@@ -14,18 +14,11 @@ import { InsuranceManagerComponent } from './layouts/insurance-manager/insurance
 import { NoAccessComponent } from './layouts/no-access/no-access.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-// import {
-//   MatInputModule,
-//   MatPaginatorModule,
-//   MatProgressSpinnerModule,
-//   MatSortModule,
-//   MatTableModule
-// } from '@angular/material';
 import { MaterialModule } from './material.module';
 
 import { ProductDataTableComponent } from './components/product-data-table/product-data-table.component';
 import { TestTableComponent } from './components/test-table/test-table.component';
+import { ModalComponent } from './modal/modal.component';
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
   authDomain: 'insurance-man.firebaseapp.com',
@@ -44,7 +37,8 @@ const config = {
     InsuranceManagerComponent,
     NoAccessComponent,
     ProductDataTableComponent,
-    TestTableComponent
+    TestTableComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +53,7 @@ const config = {
     ReactiveFormsModule
   ],
   providers: [],
+  entryComponents: [ModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

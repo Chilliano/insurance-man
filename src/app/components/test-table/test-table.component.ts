@@ -1,7 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { InsuranceProducts } from 'app/components/product-data-table/InsuranceProducts.json';
+import {
+  MatTableDataSource,
+  MatSort,
+  MatPaginator,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA
+} from '@angular/material';
+import { InsuranceProducts } from 'app/components/test-table/InsuranceProducts.json.js';
+import { ModalComponent } from 'app/modal/modal.component';
 
 @Component({
   selector: 'app-test-table',
@@ -29,7 +37,9 @@ export class TestTableComponent implements OnInit {
     price: ''
   };
 
-  constructor() {
+  favourites = [];
+
+  constructor(public dialog: MatDialog) {
     this.dataSource.data = this.products;
     this.dataSource.filterPredicate = this.createFilter();
   }
@@ -60,6 +70,7 @@ export class TestTableComponent implements OnInit {
 
   onRowClicked(r) {
     console.log('row received', r);
+    this.openConfirmDialog(r);
   }
 
   onSearch() {
@@ -80,5 +91,20 @@ export class TestTableComponent implements OnInit {
       );
     };
     return filterFunction;
+  }
+
+  openConfirmDialog(row): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '250px',
+      data: row
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.favourites.push(result);
+    });
+    console.log('this.favourites is ', this.favourites);
   }
 }

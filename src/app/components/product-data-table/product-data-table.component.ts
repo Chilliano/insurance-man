@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InsuranceProducts } from './InsuranceProducts.json';
+import { InsuranceProducts } from '../test-table/InsuranceProducts.json.js';
 import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ProductModel } from 'app/models/product.model';
 import { FormControl } from '@angular/forms';
