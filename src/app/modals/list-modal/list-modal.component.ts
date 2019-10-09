@@ -1,14 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatTableDataSource,
-  MatDialog
+  MatDialog,
+  MatSort
 } from '@angular/material';
 import { ProductModel } from 'app/models/product.model';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -21,6 +17,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./list-modal.component.scss']
 })
 export class ListModalComponent implements OnInit {
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   nameFilter = new FormControl('');
   companyFilter = new FormControl('');
   brandFilter = new FormControl('');
@@ -64,6 +62,7 @@ export class ListModalComponent implements OnInit {
   ngAfterViewInit() {
     console.log('data is ', this.data);
     this.dataSource.data = this.data;
+    this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.tableFilter();
   }
 
@@ -91,7 +90,7 @@ export class ListModalComponent implements OnInit {
       return (
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
         data.brand.toLowerCase().indexOf(searchTerms.brand) !== -1 &&
-        data.kind.toLowerCase().indexOf(searchTerms.kind) !== -1 
+        data.kind.toLowerCase().indexOf(searchTerms.kind) !== -1
       );
     };
     return filterFunction;
@@ -102,7 +101,8 @@ export class ListModalComponent implements OnInit {
   }
 
   openConfirmDialog(r) {
-    this.dialogRef.componentInstance.openConfirmDialog(r);
+    console.log('should i do it here');
+    // this.dialogRef.componentInstance.openConfirmDialog(r);
     // this.subscribeToFavourites();
   }
 }

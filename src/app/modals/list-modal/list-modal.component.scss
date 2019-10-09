@@ -7,7 +7,6 @@
     width: 5rem;
   }
   th.header {
-    border: 2px solid red;
   }
 
   tr.mat-header-row {
@@ -42,6 +41,9 @@ th.mat-sort-header-sorted {
 }
 
 :host::ng-deep {
+  .mat-sort-header-button {
+    display: grid;
+  }
   .progress-loader {
     display: grid;
     align-items: center;
