@@ -21,38 +21,13 @@
   <!-- <button (click)="onSearch()">Search</button> -->
 
   <div class="container">
+    Favourites
     <table
       mat-table
       [dataSource]="dataSource"
       matSort
       [ngClass]="{ hidden: loading }"
     >
-      <!-- Checkbox Column -->
-      <!-- <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
-          {{
-            selection.hasValue() && isAllSelected()
-              ? 'Select None '
-              : 'Select All '
-          }}
-          <mat-checkbox
-            (change)="$event ? masterToggle() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()"
-          >
-          </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-checkbox
-            [ngClass]="{ listed: favourites.indexOf(row) > -1 }"
-            (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(row) : null"
-            [checked]="selection.isSelected(row)"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container> -->
-
       <ng-container matColumnDef="name">
         <th
           class="header header--name"
@@ -61,7 +36,12 @@
           mat-sort-header
         >
           Name
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Search</mat-label>
+            <input matInput [formControl]="nameFilter" />
+          </mat-form-field>
         </th>
+
         <td mat-cell *matCellDef="let product">{{ product.name }}</td>
       </ng-container>
       <ng-container matColumnDef="brand">
@@ -72,6 +52,10 @@
           mat-sort-header
         >
           Company
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Search</mat-label>
+            <input matInput [formControl]="brandFilter" />
+          </mat-form-field>
         </th>
         <td mat-cell *matCellDef="let product">{{ product.brand }}</td>
       </ng-container>
@@ -83,19 +67,12 @@
           mat-sort-header
         >
           Kind
+          <mat-form-field class="filter" floatLabel="never">
+            <mat-label>Search</mat-label>
+            <input matInput [formControl]="kindFilter" />
+          </mat-form-field>
         </th>
         <td mat-cell *matCellDef="let product">{{ product.kind }}</td>
-      </ng-container>
-      <ng-container matColumnDef="price">
-        <th
-          class="header header--price"
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-        >
-          Price £
-        </th>
-        <td mat-cell *matCellDef="let product">{{ product.price }}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
       <tr

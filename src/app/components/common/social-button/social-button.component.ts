@@ -15,7 +15,5 @@ export class SocialButtonComponent implements OnInit {
 
   ngOnInit() {
     this.class = this.user ? 'google-sign-out' : 'google-sign-in';
-
-    console.log('user is ', this.user);
   }
 }

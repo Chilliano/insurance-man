@@ -1,11 +1,4 @@
-<!-- <app-product-data-table></app-product-data-table> -->
-<!-- <app-test-table></app-test-table> -->
-<app-test-table3></app-test-table3>
-
-<div *ngIf="auth.user$ | async as user">
-  <app-social-button
-    (clicked)="auth.signOut()"
-    [user]="user"
-    [text]="'Sign out of Google'"
-  ></app-social-button>
+<div class="table-container">
+  <app-test-table></app-test-table>
 </div>
+

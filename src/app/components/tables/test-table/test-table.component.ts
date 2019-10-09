@@ -15,6 +15,7 @@ import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ProductModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-test-table',
   templateUrl: './test-table.component.html',
@@ -23,9 +24,10 @@ import { ProductsService } from 'app/services/products.service';
 export class TestTableComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  products = InsuranceProducts;
+
   initialSelection = [];
   allowMultiSelect = true;
+
   selection = new SelectionModel<ProductModel>(true, []);
 
   nameFilter = new FormControl('');
@@ -35,7 +37,7 @@ export class TestTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<ProductModel>();
 
-  columnsToDisplay = ['select', 'name', 'brand', 'kind', 'price'];
+  columnHeaders = ['select', 'name', 'brand', 'kind', 'price'];
   filterValues = {
     name: '',
     brand: '',
@@ -43,54 +45,50 @@ export class TestTableComponent implements OnInit {
     price: ''
   };
 
-  favourites = [];
+  favourites: ProductModel[];
+  favouritesSubscription: Subscription;
 
-  loading = false;
+  displayMiniList = false;
 
   constructor(
     public dialog: MatDialog,
     private productsService: ProductsService
   ) {
     this.dataSource.data = [];
-    this.dataSource.filterPredicate = this.createFilter();
-    this.selection = new SelectionModel<ProductModel>(
-      this.allowMultiSelect,
-      this.initialSelection
-    );
+    this.favourites = [];
+    this.setTableSelect();
+    this.subscribeToFavourites();
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.nameFilter.valueChanges.subscribe(name => {
-      this.filterValues.name = name;
-    });
-    this.brandFilter.valueChanges.subscribe(brand => {
-      this.filterValues.brand = brand;
-    });
-    this.kindFilter.valueChanges.subscribe(kind => {
-      this.filterValues.kind = kind;
-    });
-    this.priceFilter.valueChanges.subscribe(price => {
-      this.filterValues.price = price;
-    });
+    this.subscribeToFilters();
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    // simulate api fetch
-    this.dataSource.data = this.products;
-    this.loading = false;
+    this.setDataSourceVariables();
   }
 
   onSaveSelected() {
+    if (!this.selection.selected.length) {
+      return;
+    }
     const finalSelection = this.selection.selected.filter(
       s => this.favourites.indexOf(s) === -1
     );
     this.favourites = this.favourites.concat(finalSelection);
     this.productsService.addToFavourites(finalSelection);
+  }
 
-    console.log('new favourites is ', this.favourites);
+  onRemoveSelected() {
+    console.log('implement logic here');
+    // if (!this.selection.selected.length) {
+    // return;
+    // }
+    // const finalSelection = this.selection.selected.filter(
+    // s => this.favourites.indexOf(s) > -1
+    // );
+    // this.favourites = this.favourites.concat(finalSelection);
+    // this.productsService.addToFavourites(finalSelection);
   }
 
   onRowClicked(r) {
@@ -122,9 +120,13 @@ export class TestTableComponent implements OnInit {
   }
 
   onSearch() {
-    this.loading = true;
+    // this.loading = true;
     this.dataSource.filter = JSON.stringify(this.filterValues);
-    this.loading = false;
+    // this.loading = false;
+  }
+
+  toggleMiniList() {
+    this.displayMiniList = !this.displayMiniList;
   }
 
   createFilter(): (data: any, filter: string) => boolean {
@@ -143,11 +145,9 @@ export class TestTableComponent implements OnInit {
     return filterFunction;
   }
 
-  openConfirmDialog(row): void {
-    console.log('inside test-table i get ', row);
+  openConfirmDialog(row, modal?): void {
     // if its not in the favourites
     if (this.favourites.indexOf(row) === -1) {
-      console.log('row is ', row);
       const dialogRef = this.dialog.open(SelectModalComponent, {
         width: '250px',
         data: row
@@ -159,7 +159,7 @@ export class TestTableComponent implements OnInit {
           // if they want to save it in the list
         } else {
           this.productsService.addToFavourites([result]);
-          this.favourites.push(result);
+          // this.favourites.push(result);
           this.selection.isSelected(row);
           this.selection.toggle(row);
         }
@@ -183,24 +183,62 @@ export class TestTableComponent implements OnInit {
         }
       });
     }
-    console.log('this.favourites is ', this.favourites);
   }
 
   openListDialog(): void {
+    
     let dialogRef = this.dialog.open(ListModalComponent, {
       width: '250px',
       data: this.favourites
     });
-    dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
-    dialogRef.componentInstance.favourites = this.favourites;
-    dialogRef.componentInstance.selection = this.selection;
+    // dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
+    // dialogRef.componentInstance.favourites = this.favourites;
+    // dialogRef.componentInstance.selection.toggle = this.selection.toggle;
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
       }
-      console.log('results are ', result);
     });
-    console.log('this.favourites is ', this.favourites);
+  }
+
+  subscribeToFavourites() {
+    this.favouritesSubscription = this.productsService.favourites.subscribe(
+      res => {
+        console.log('res is ', res);
+        this.favourites = res;
+        console.log('this.favourites is ', this.favourites);
+      }
+    );
+  }
+
+  setDataSourceVariables() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.data = InsuranceProducts;
+    this.dataSource.filterPredicate = this.createFilter();
+  }
+
+  // subscriptions
+  subscribeToFilters() {
+    this.nameFilter.valueChanges.subscribe(name => {
+      this.filterValues.name = name;
+    });
+    this.brandFilter.valueChanges.subscribe(brand => {
+      this.filterValues.brand = brand;
+    });
+    this.kindFilter.valueChanges.subscribe(kind => {
+      this.filterValues.kind = kind;
+    });
+    this.priceFilter.valueChanges.subscribe(price => {
+      this.filterValues.price = price;
+    });
+  }
+
+  setTableSelect() {
+    this.selection = new SelectionModel<ProductModel>(
+      this.allowMultiSelect,
+      this.initialSelection
+    );
   }
 }

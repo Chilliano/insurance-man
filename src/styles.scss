@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-$red: #ff4136;
+@import 'app/styles/index.scss';
 
 html,
 body {
@@ -9,7 +9,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background: #282828 !important; /* match border color */
+  background: $primary !important; /* match border color */
   text-align: center;
 }
 
@@ -17,4 +17,15 @@ h1 {
   margin: 0;
 }
 
-
+.mat-dialog-container {
+  max-width: 90vw !important;
+  max-height: 85vh !important;
+  min-width: 80vw !important;
+  margin: 0 auto;
+  min-height: 75vh !important;
+  width: 100%;
+  position: absolute !important;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) !important;
+}

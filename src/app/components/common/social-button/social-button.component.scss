@@ -1,13 +1,18 @@
-.google-sign-{
+@import '../../../styles/index';
+.google-sign- {
   &in {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  &out{
-    position: absolute;
-    bottom: 0;
-    left: 0;
+}
+.social-button {
+  background: #031f40;
+  color: #fff;
+  font-weight: 300;
+
+  &:hover {
+    background: $red;
   }
 }

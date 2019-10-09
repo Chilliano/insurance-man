@@ -29,7 +29,6 @@ export class ProductDataTableComponent implements OnInit {
 
   ngOnInit() {
     this.setupSubscriptions();
-    console.log('this.dataSource is ', this.dataSource);
   }
 
   ngAfterViewInit() {
@@ -41,7 +40,6 @@ export class ProductDataTableComponent implements OnInit {
   tableFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data, filter): boolean {
       let searchTerms = JSON.parse(filter);
-      console.log('search terms are ', searchTerms);
       return (
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
         data.price
@@ -52,7 +50,6 @@ export class ProductDataTableComponent implements OnInit {
         data.kind.toLowerCase().indexOf(searchTerms.pet) !== -1
       );
     };
-    console.log('filter function is ', filterFunction);
     return filterFunction;
   }
 
@@ -76,13 +73,11 @@ export class ProductDataTableComponent implements OnInit {
   }
 
   onRowClicked(row) {
-    console.log('clicked ', row);
   }
 
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data, filter): boolean {
       let searchTerms = JSON.parse(filter);
-      console.log('searchTerms are ', searchTerms);
       return (
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
         data.id

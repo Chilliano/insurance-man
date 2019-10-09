@@ -1,28 +1,19 @@
-<div class="outer-container" *ngIf="auth.user$" >
+<div class="outer-container" *ngIf="auth.user$">
   <div class="titles">
-    <div *ngIf="auth.user$ | async as user; else loginTitle">
-      <h1 class="page-title">Insurance Quotes Comparison</h1>
-    </div>
-    <ng-template #loginTitle>
-      <app-logo ></app-logo>
-    </ng-template>
+    <app-logo></app-logo>
   </div>
 
-  <div class="logins" >
+
+  <div class="logins">
     <div *ngIf="auth.user$ | async as user; else login">
-      <!-- <app-insurance-manager></app-insurance-manager> -->
-      <app-social-button
-        (clicked)="auth.signOut()"
-        [user]="user"
-        [text]="'Sign out of Google'"
-      ></app-social-button>
+      <a class="nav-link" routerLink="/insurance-manager">Search For Insurance Quotes</a>
     </div>
     <ng-template #login>
       <form class="form-signin">
         <app-social-button
           (clicked)="auth.googleSignIn()"
           [user]="user"
-          [text]="'Sign into Google'"
+          [text]="'Sign in with Google'"
         ></app-social-button>
       </form>
     </ng-template>
