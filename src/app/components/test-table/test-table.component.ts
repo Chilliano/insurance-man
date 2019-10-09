@@ -14,6 +14,7 @@ import { SelectModalComponent } from 'app/modals/select-modal/select-modal.compo
 import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ProductModel } from 'app/models/product.model';
+import { ProductsService } from 'app/services/products.service';
 @Component({
   selector: 'app-test-table',
   templateUrl: './test-table.component.html',
@@ -46,7 +47,10 @@ export class TestTableComponent implements OnInit {
 
   loading = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private productsService: ProductsService
+  ) {
     this.dataSource.data = [];
     this.dataSource.filterPredicate = this.createFilter();
     this.selection = new SelectionModel<ProductModel>(
@@ -86,6 +90,8 @@ export class TestTableComponent implements OnInit {
       s => this.favourites.indexOf(s) === -1
     );
     this.favourites = this.favourites.concat(finalSelection);
+    this.productsService.addToFavourites(finalSelection);
+
     console.log('new favourites is ', this.favourites);
   }
 
@@ -157,6 +163,7 @@ export class TestTableComponent implements OnInit {
           return;
           // if they want to save it in the list
         } else {
+          this.productsService.addToFavourites([result]);
           this.favourites.push(result);
           this.selection.isSelected(row);
           this.selection.toggle(row);
@@ -173,6 +180,7 @@ export class TestTableComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
+          this.productsService.removeFromFavourites([row]);
           this.favourites = this.favourites.filter(r => r.id !== row.id);
           this.selection.toggle(row);
         } else {
@@ -191,8 +199,7 @@ export class TestTableComponent implements OnInit {
     dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
     dialogRef.componentInstance.favourites = this.favourites;
     dialogRef.componentInstance.selection = this.selection;
-   
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
