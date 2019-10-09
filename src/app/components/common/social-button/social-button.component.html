@@ -1,0 +1,9 @@
+<button
+  type="button"
+  class="btn btn-success"
+  [ngClass]="class"
+  (click)="this.clicked.emit()"
+>
+  {{ text }}
+</button>
+<!-- [ngClass]="(userAuthed) ? 'google-sign-out' : 'google-sign-in'" -->

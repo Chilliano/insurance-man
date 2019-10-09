@@ -7,7 +7,11 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  spinNow = false;
+  displayNow = false;
   constructor(public auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.spinNow = true;
+  }
 }

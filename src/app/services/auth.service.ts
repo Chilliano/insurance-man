@@ -7,14 +7,18 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { User } from './user.model';
+import { User } from 'app/models/user.model';
+import { ProductModel } from 'app/models/product.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private _user: BehaviorSubject<User> = new BehaviorSubject({});
+  public readonly user: Observable<User> = this._user.asObservable();
+
   user$: Observable<User>;
   constructor(
     private afAuth: AngularFireAuth,
@@ -30,9 +34,7 @@ export class AuthService {
         }
       })
     );
-
   }
-
 
   async googleSignIn() {
     const provider = new auth.GoogleAuthProvider();

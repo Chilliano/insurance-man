@@ -3,9 +3,14 @@ import { ProductModel } from 'app/models/product.model';
 @Injectable({
   providedIn: 'root'
 })
-
 export class ProductsService {
   state = { favourites: [] };
+
+  constructor() {}
+
+  public getFavourites(): Array<ProductModel> {
+    return this.state.favourites;
+  }
 
   // reducer
   rootReducer(state, action) {
@@ -42,8 +47,6 @@ export class ProductsService {
     type: 'FAVOURITES_REMOVE',
     payload: products
   });
-
-  constructor() {}
 
   // actions
 

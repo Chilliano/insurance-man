@@ -1,0 +1,7 @@
+.base-container {
+  border: 2px solid red;
+  height: 100vh;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 5rem 0 auto 5rem;
+}

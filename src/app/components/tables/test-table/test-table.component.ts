@@ -9,7 +9,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material';
-import { InsuranceProducts } from 'app/components/test-table/InsuranceProducts.json.js';
+import { InsuranceProducts } from 'app/components/tables/test-table/InsuranceProducts.json.js';
 import { SelectModalComponent } from 'app/modals/select-modal/select-modal.component';
 import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -79,10 +79,8 @@ export class TestTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     // simulate api fetch
-    setTimeout(() => {
-      this.dataSource.data = this.products;
-      this.loading = false;
-    }, 500);
+    this.dataSource.data = this.products;
+    this.loading = false;
   }
 
   onSaveSelected() {
@@ -124,12 +122,9 @@ export class TestTableComponent implements OnInit {
   }
 
   onSearch() {
-    // simulate api fetch
     this.loading = true;
-    setTimeout(() => {
-      this.dataSource.filter = JSON.stringify(this.filterValues);
-      this.loading = false;
-    }, 500);
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+    this.loading = false;
   }
 
   createFilter(): (data: any, filter: string) => boolean {

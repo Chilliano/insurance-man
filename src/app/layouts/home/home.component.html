@@ -1,18 +1,30 @@
-<h1>Base</h1>
+<div class="outer-container" *ngIf="auth.user$" >
+  <div class="titles">
+    <div *ngIf="auth.user$ | async as user; else loginTitle">
+      <h1 class="page-title">Insurance Quotes Comparison</h1>
+    </div>
+    <ng-template #loginTitle>
+      <app-logo ></app-logo>
+    </ng-template>
+  </div>
 
-<div *ngIf="auth.user$ | async as user; else login">
-  <pre>
-   {{ user | json }}
- </pre
-  >
-  <hr />
-
-  <button class="button" (click)="auth.signOut()">Sign Out</button>
+  <div class="logins" >
+    <div *ngIf="auth.user$ | async as user; else login">
+      <!-- <app-insurance-manager></app-insurance-manager> -->
+      <app-social-button
+        (clicked)="auth.signOut()"
+        [user]="user"
+        [text]="'Sign out of Google'"
+      ></app-social-button>
+    </div>
+    <ng-template #login>
+      <form class="form-signin">
+        <app-social-button
+          (clicked)="auth.googleSignIn()"
+          [user]="user"
+          [text]="'Sign into Google'"
+        ></app-social-button>
+      </form>
+    </ng-template>
+  </div>
 </div>
-
-
-
-<a routerLink="/insurance-manager" routerLinkActive="active">Manager page</a>
-<ng-template #login>
-  <button class="button" (click)="auth.googleSignIn()">Login</button>
-</ng-template>

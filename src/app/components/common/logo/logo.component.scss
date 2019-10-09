@@ -1,0 +1,22 @@
+.logo {
+  font: 84px 'Arial Narrow', sans-serif; 
+  color: #fefefe;
+  text-transform: uppercase;
+  letter-spacing: -4px;
+  &--container {
+    text-align: center;
+  }
+  .word2 {
+    transition: all 3s;
+    z-index: 0; /* stack 2nd word below */
+  }
+  .word1 {
+    color: #dc006c;
+    display: inline-block; /* required for transform */
+    z-index: 10;
+    transition: all 4s;
+  }
+  span {
+    position: relative;
+  }
+}

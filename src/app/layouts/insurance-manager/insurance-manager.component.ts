@@ -1,15 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductsService } from 'app/services/products.service';
+import { Component, OnInit } from '@angular/core';
+// import { ProductsService } from 'app/services/products.service';
+import { AuthService } from 'app/services/auth.service';
+
 @Component({
   selector: 'app-insurance-manager',
   templateUrl: './insurance-manager.component.html',
   styleUrls: ['./insurance-manager.component.scss']
 })
 export class InsuranceManagerComponent implements OnInit {
-  constructor(private product: ProductsService) {}
+  constructor(public auth: AuthService) // private product: ProductsService
+  {}
   displayedColumns: string[] = ['name', 'brand', 'price', 'kind', 'id'];
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('this.auth is ', this.auth.user$);
+  }
 
   // addProduct() {
   //   this.product.addProduct({
