@@ -1,12 +1,9 @@
-<h1 mat-dialog-title>Would you like to save this to your list of insurance?</h1>
-<div mat-dialog-content>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.name" />
-  </mat-form-field>
-</div>
+<h1 *ngIf="!data.previouslySelected" mat-dialog-title>Would you like to save this to your list of favourite insurances?</h1>
+<h1 *ngIf="data.previouslySelected" mat-dialog-title>Would you like to remove this from your list of favourites?</h1>
+<div mat-dialog-content></div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
     Ok
   </button>
 </div>

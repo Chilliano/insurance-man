@@ -1,3 +1,5 @@
+<div class="outer-container">
+
 <div class="filter-options">
   <mat-form-field class="filter" floatLabel="never">
     <mat-label>name</mat-label>
@@ -19,43 +21,107 @@
 
 <button (click)="onSearch()">Search</button>
 
-<table mat-table [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef="name">
-    <th class="header" mat-header-cell *matHeaderCellDef mat-sort-header>
-      Name
-    </th>
-    <td mat-cell *matCellDef="let product">{{ product.name }}</td>
-  </ng-container>
-  <ng-container matColumnDef="brand">
-    <th class="header" mat-header-cell *matHeaderCellDef mat-sort-header>
-      Company
-    </th>
-    <td mat-cell *matCellDef="let product">{{ product.brand }}</td>
-  </ng-container>
-  <ng-container matColumnDef="kind">
-    <th class="header" mat-header-cell *matHeaderCellDef mat-sort-header>
-      Kind
-    </th>
-    <td mat-cell *matCellDef="let product">{{ product.kind }}</td>
-  </ng-container>
-  <ng-container matColumnDef="price">
-    <th class="header" mat-header-cell *matHeaderCellDef mat-sort-header>
-      Price £
-    </th>
-    <td mat-cell *matCellDef="let product">{{ product.price }}</td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr
-    mat-row
-    *matRowDef="let row; columns: columnsToDisplay"
-    (click)="onRowClicked(row)"
-  ></tr>
-</table>
+<div class="container">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    [ngClass]="{ hidden: loading }"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        {{
+          selection.hasValue() && isAllSelected()
+            ? 'Select None '
+            : 'Select All '
+        }}
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox
+          [ngClass]="{ listed: favourites.indexOf(row) > -1 }"
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th
+        class="header header--name"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Name
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="brand">
+      <th
+        class="header header--company"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Company
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product.brand }}</td>
+    </ng-container>
+    <ng-container matColumnDef="kind">
+      <th
+        class="header header--kind"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Kind
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product.kind }}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th
+        class="header header--price"
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+      >
+        Price £
+      </th>
+      <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columnsToDisplay"
+      (click)="onRowClicked(row)"
+    ></tr>
+  </table>
+</div>
+
+<div class="progress-loader" [ngClass]="{ hidden: !loading }">
+  <mat-progress-spinner [mode]="'indeterminate'"> </mat-progress-spinner>
+</div>
 
 <mat-paginator
   [pageSizeOptions]="[5, 10, 15]"
   showFirstLastButtons
 ></mat-paginator>
 
-
 <button (click)="onDisplayList()">Display List</button>
+
+<button (click)="onSaveSelected()">Add Selected to List</button>
+
+favourites is
+<ul>
+  <li *ngFor="let f of favourites">{{ f.name }}</li>
+</ul>
+</div>
