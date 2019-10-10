@@ -17,7 +17,9 @@
           [text]="'Sign in with Google'"
         ></app-social-button>
       </form>
-      <p class="free-creds" (click)="displayFakeCredentialsToggle()">
+      
+    </ng-template>
+    <p class="free-creds" (click)="displayFakeCredentialsToggle()">
         (Care for some false gmail credentials?)
       </p>
       <div class="fake-account" [ngClass]="{ display: displayFakeCredentials }">
@@ -28,6 +30,5 @@
           Copy Gmail password
         </button>
       </div>
-    </ng-template>
   </div>
 </div>
