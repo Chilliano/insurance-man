@@ -97,31 +97,19 @@ export class ListModalComponent implements OnInit {
 
   onRemoveSelected() {
     const productsToRemove = this.selection.selected;
-    console.log('productsToRemove is ', productsToRemove);
-    this.productsService.removeFromFavourites(this.selection.selected);
+    this.productsService.removeFromFavourites(productsToRemove);
 
-    console.log('productsToRemove is ', productsToRemove);
-    console.log('currentState is ', this.data);
     let updatedState = this.data;
     updatedState.forEach(f => {
-      console.log('f is ', f);
       if (productsToRemove.indexOf(f) > -1) {
         updatedState.splice(updatedState.indexOf(f), 1);
-        this.dialogRef.componentInstance.selection.toggle(f);
       }
     });
-    console.log('new favourites is ', updatedState);
     this.dataSource.data = updatedState;
   }
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-
-  openConfirmDialog(r) {
-    console.log('should i do it here');
-    // this.dialogRef.componentInstance.openConfirmDialog(r);
-    // this.subscribeToFavourites();
   }
 
   isAllSelected() {
@@ -136,13 +124,11 @@ export class ListModalComponent implements OnInit {
     this.isAllSelected()
       ? this.selection.clear()
       : this.dataSource.data.forEach(row => {
-          console.log('row is ', row);
           if (availablePaginatedRows.indexOf(row) > -1) {
             this.selection.select(row);
           }
         });
 
-    console.log('selected is ', this.selection);
   }
 
   logSelected() {

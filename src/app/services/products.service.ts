@@ -19,28 +19,21 @@ export class ProductsService {
       case 'FAVOURITES_ADD':
         const newFavouritesState = state.concat(action.payload);
         this.stateSource.next(newFavouritesState);
-        console.log('now the state is ', this.stateSource.getValue());
         break;
       case 'FAVOURITES_REMOVE':
-        console.log(
-          'this.stateSource.getValue() is ',
-          this.stateSource.getValue()
-        );
+        // console.log('current state is ', state);
         const productsToRemove = action.payload;
-        console.log('productsToRemove is ', productsToRemove);
-        let updatedState = state;
-        console.log('updatedState is ', updatedState);
-        updatedState.forEach(f => {
-          console.log('f is ', f);
-          console.log('currentProductsToRemove is ', productsToRemove);
-          const exists = productsToRemove.indexOf(f);
-          console.log('exists is ', exists);
-          if (productsToRemove.indexOf(f) > -1) {
+        // console.log('current productsToRemove is ', productsToRemove);
+        const updatedState = state;
+
+
+        productsToRemove.forEach(f => {
+          const exists = updatedState.indexOf(f)  > -1;
+          if (exists) {
             updatedState.splice(updatedState.indexOf(f), 1);
           }
         });
         this.stateSource.next(updatedState);
-        console.log('now the state is ', this.stateSource.getValue());
         break;
       default:
         break;
