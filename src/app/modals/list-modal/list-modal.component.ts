@@ -24,7 +24,9 @@ export class ListModalComponent implements OnInit {
   brandFilter = new FormControl('');
   kindFilter = new FormControl('');
   dataSource = new MatTableDataSource();
-  columnsToDisplay = ['name', 'brand', 'kind'];
+  selection = new SelectionModel(true, []);
+
+  columnsToDisplay = ['select', 'name', 'brand', 'kind'];
   filterValues = {
     name: '',
     brand: '',
@@ -104,5 +106,30 @@ export class ListModalComponent implements OnInit {
     console.log('should i do it here');
     // this.dialogRef.componentInstance.openConfirmDialog(r);
     // this.subscribeToFavourites();
+  }
+
+  isAllSelected() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    const numSelected = this.selection.selected.length;
+    const numRows = availablePaginatedRows.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => {
+          console.log('row is ', row);
+          if (availablePaginatedRows.indexOf(row) > -1) {
+            this.selection.select(row);
+          }
+        });
+
+    console.log('selected is ', this.selection);
+  }
+
+  logSelected() {
+    console.log('selected is ', this.selection);
   }
 }

@@ -28,6 +28,25 @@
       matSort
       [ngClass]="{ hidden: loading }"
     >
+      <ng-container matColumnDef="select">
+        <th class="header header--select" mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-header-cell mat-cell *matCellDef="let row">
+          <mat-checkbox
+            [ngClass]="{ listed: dataSource.data.indexOf(row) > -1 }"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null; logSelected()"
+            [checked]="selection.isSelected(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="name">
         <th
           class="header header--name"
