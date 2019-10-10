@@ -13,7 +13,7 @@ export class InsuranceManagerComponent implements OnInit {
   displayedColumns: string[] = ['name', 'brand', 'price', 'kind', 'id'];
 
   ngOnInit() {
-    console.log('this.auth is ', this.auth.user$);
+    // console.log('this.auth is ', this.auth.user$);
   }
 
   // addProduct() {

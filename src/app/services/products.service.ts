@@ -22,12 +22,20 @@ export class ProductsService {
         console.log('now the state is ', this.stateSource.getValue());
         break;
       case 'FAVOURITES_REMOVE':
+        console.log(
+          'this.stateSource.getValue() is ',
+          this.stateSource.getValue()
+        );
         const productsToRemove = action.payload;
+        console.log('productsToRemove is ', productsToRemove);
         let updatedState = state;
+        console.log('updatedState is ', updatedState);
         updatedState.forEach(f => {
-          if (productsToRemove.indexOf(f) === -1) {
-            return;
-          } else if (productsToRemove.indexOf(f) > -1) {
+          console.log('f is ', f);
+          console.log('currentProductsToRemove is ', productsToRemove);
+          const exists = productsToRemove.indexOf(f);
+          console.log('exists is ', exists);
+          if (productsToRemove.indexOf(f) > -1) {
             updatedState.splice(updatedState.indexOf(f), 1);
           }
         });
@@ -55,6 +63,7 @@ export class ProductsService {
   }
 
   removeFromFavourites(products: ProductModel[]) {
+    console.log('this.stateSource.getValue() is ', this.stateSource.getValue());
     const action = this.removeFavourite(products);
     this.rootReducer(this.stateSource.getValue(), action);
   }

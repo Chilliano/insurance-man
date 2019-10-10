@@ -215,18 +215,14 @@ th.mat-sort-header-sorted {
 // md-row:nth-child(odd) {
 //   background-color: #fdfdfb;
 // }
-// .container {
-//   &--outer {
-//     height: 100vh;
-//     overflow: auto;
-//   }
-//   &--table {
-//     display: flex;
-//     flex-direction: column;
-//     max-height: 500px;
-//     min-width: 300px;
-//   }
-// }
+.container {
+  &--outer {
+    height: 100vh;
+    overflow: auto;
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+}
 
 .mat-table {
   overflow: auto;

@@ -15,7 +15,7 @@ import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ProductModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products.service';
-import { Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 @Component({
   selector: 'app-test-table',
   templateUrl: './test-table.component.html',
@@ -186,14 +186,13 @@ export class TestTableComponent implements OnInit {
   }
 
   openListDialog(): void {
-    
     let dialogRef = this.dialog.open(ListModalComponent, {
       width: '250px',
       data: this.favourites
     });
     // dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
     // dialogRef.componentInstance.favourites = this.favourites;
-    // dialogRef.componentInstance.selection.toggle = this.selection.toggle;
+    dialogRef.componentInstance.selection.toggle = this.selection.toggle;
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result) {
@@ -205,9 +204,8 @@ export class TestTableComponent implements OnInit {
   subscribeToFavourites() {
     this.favouritesSubscription = this.productsService.favourites.subscribe(
       res => {
-        console.log('res is ', res);
         this.favourites = res;
-        console.log('this.favourites is ', this.favourites);
+        console.log('favourites updated to  ', this.favourites);
       }
     );
   }

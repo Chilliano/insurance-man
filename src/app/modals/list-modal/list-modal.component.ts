@@ -69,9 +69,6 @@ export class ListModalComponent implements OnInit {
   }
 
   tableFilter(): (data: any, filter: string) => boolean {
-    // console.log('data is ', this.data);
-    // console.log('filter is ', filter);
-
     let filterFunction = function(data, filter): boolean {
       let searchTerms = JSON.parse(filter);
       console.log('data.name.toLowerCase() is ', data.name.toLowerCase());
@@ -96,6 +93,25 @@ export class ListModalComponent implements OnInit {
       );
     };
     return filterFunction;
+  }
+
+  onRemoveSelected() {
+    const productsToRemove = this.selection.selected;
+    console.log('productsToRemove is ', productsToRemove);
+    this.productsService.removeFromFavourites(this.selection.selected);
+
+    console.log('productsToRemove is ', productsToRemove);
+    console.log('currentState is ', this.data);
+    let updatedState = this.data;
+    updatedState.forEach(f => {
+      console.log('f is ', f);
+      if (productsToRemove.indexOf(f) > -1) {
+        updatedState.splice(updatedState.indexOf(f), 1);
+        this.dialogRef.componentInstance.selection.toggle(f);
+      }
+    });
+    console.log('new favourites is ', updatedState);
+    this.dataSource.data = updatedState;
   }
 
   onNoClick(): void {
