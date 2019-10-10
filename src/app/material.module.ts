@@ -11,7 +11,8 @@ import {
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatCardModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule
   ]
 })
 export class MaterialModule {}

@@ -26,9 +26,18 @@
           >Insurance-manager</a
         >
       </li>
+      <li class="nav-item logout">
+        <div *ngIf="auth.user$ | async as user">
+          <app-social-button
+            (clicked)="auth.signOut()"
+            [user]="user"
+            [text]="'Sign out of Google'"
+          ></app-social-button>
+        </div>
+      </li>
     </ul>
   </div>
-  <a class="nav-link profile" >
+  <a class="nav-link profile">
     <div class="dropdown">
       <span
         ><img

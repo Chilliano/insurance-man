@@ -3,6 +3,8 @@
   max-width: 330px;
   padding: 15px;
   margin: auto;
+  display: grid;
+  justify-content: center;
 }
 .form-signin .checkbox {
   font-weight: 400;
@@ -44,4 +46,20 @@
   text-align: center;
   padding: 1rem;
   margin-bottom: 1rem;
+}
+
+.fake-account {
+  opacity: 0;
+  transition: all 0.2s ease;
+  &.display {
+    opacity: 1;
+    transition: all 0.2s ease;
+  }
+}
+
+.free-creds {
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
 }

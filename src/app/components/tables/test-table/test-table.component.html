@@ -44,7 +44,14 @@
           </mat-checkbox>
         </td>
       </ng-container>
-
+      <ng-container matColumnDef="image">
+        <th class="header header--image" mat-header-cell *matHeaderCellDef>
+          
+        </th>
+        <td mat-cell *matCellDef="let product">
+          <img class="brand-image" [src]="retrieveImage(product)" alt="" />
+        </td>
+      </ng-container>
       <ng-container matColumnDef="name">
         <th
           class="header header--name"

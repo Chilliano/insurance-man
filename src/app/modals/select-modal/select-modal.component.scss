@@ -1,0 +1,48 @@
+.container--outer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  .action-buttons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 10px;
+  }
+}
+
+:host {
+  &:ng-deep {
+    .mat-dialog-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+li {
+  color: #0074d9;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  img {
+    border-radius: 10px 0 0 10px;
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  &--data {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    grid-gap: 20px;
+  }
+}
+
+

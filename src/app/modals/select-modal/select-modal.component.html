@@ -1,9 +1,35 @@
-<h1 *ngIf="!data.previouslySelected" mat-dialog-title>Would you like to save this to your list of favourite insurances?</h1>
-<h1 *ngIf="data.previouslySelected" mat-dialog-title>Would you like to remove this from your list of favourites?</h1>
-<div mat-dialog-content></div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
-    Ok
-  </button>
+<div class="container--outer">
+  <div class="title">
+    <h1 *ngIf="!data.previouslySelected; else alreadySelected" mat-dialog-title>
+      Would you like to save this to your list of favourite insurances?
+    </h1>
+    <ng-template #alreadySelected>
+      <h1 *ngIf="data.previouslySelected" mat-dialog-title>
+        Would you like to remove this from your list of favourites?
+      </h1>
+    </ng-template>
+  </div>
+  <div mat-dialog-content>
+    <div class="card">
+      <img
+        [src]="retrieveImage()"
+        alt="Insurance Brand Logo"
+        
+      />
+      <div class="card--data">
+        <h4>
+          <b>{{ data.brand }}</b>
+        </h4>
+        <p>Name: {{ data.name }}</p>
+        <p>Insurance Type: {{ data.kind }}</p>
+        <p>Total Price: {{ data.price }}</p>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button class="btn btn-dark"  (click)="onNoClick()">No Thanks</button>
+    <button class="btn btn-dark"  [mat-dialog-close]="data" cdkFocusInitial>
+      Ok
+    </button>
+  </div>
 </div>

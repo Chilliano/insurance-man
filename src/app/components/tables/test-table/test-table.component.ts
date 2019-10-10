@@ -37,7 +37,7 @@ export class TestTableComponent implements OnInit {
 
   dataSource = new MatTableDataSource<ProductModel>();
 
-  columnHeaders = ['select', 'name', 'brand', 'kind', 'price'];
+  columnHeaders = ['select', 'image', 'name', 'brand', 'kind', 'price'];
   filterValues = {
     name: '',
     brand: '',
@@ -120,9 +120,11 @@ export class TestTableComponent implements OnInit {
   }
 
   onSearch() {
-    // this.loading = true;
     this.dataSource.filter = JSON.stringify(this.filterValues);
-    // this.loading = false;
+  }
+
+  retrieveImage(p){
+    return `../../../../assets/insuranceImages/${p['brand-image']}`;
   }
 
   toggleMiniList() {

@@ -3,10 +3,11 @@
     <app-logo></app-logo>
   </div>
 
-
   <div class="logins">
     <div *ngIf="auth.user$ | async as user; else login">
-      <a class="nav-link" routerLink="/insurance-manager">Search For Insurance Quotes</a>
+      <a class="nav-link" routerLink="/insurance-manager"
+        >Search For Insurance Quotes</a
+      >
     </div>
     <ng-template #login>
       <form class="form-signin">
@@ -16,6 +17,17 @@
           [text]="'Sign in with Google'"
         ></app-social-button>
       </form>
+      <p class="free-creds" (click)="displayFakeCredentialsToggle()">
+        (Care for some false gmail credentials?)
+      </p>
+      <div class="fake-account" [ngClass]="{ display: displayFakeCredentials }">
+        <input type="text" value="seniordevtastic" id="nameInput" />
+        <button (click)="copyFunction('name')">Copy Gmail User name</button>#
+        <input type="text" value="1seniordevtastic" id="passwordInput" />
+        <button (click)="copyFunction('password')">
+          Copy Gmail password
+        </button>
+      </div>
     </ng-template>
   </div>
 </div>

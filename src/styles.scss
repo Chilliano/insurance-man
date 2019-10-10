@@ -17,15 +17,15 @@ h1 {
   margin: 0;
 }
 
+li {
+  list-style: none;
+}
+
 .mat-dialog-container {
-  max-width: 90vw !important;
-  max-height: 85vh !important;
-  min-width: 80vw !important;
-  margin: 0 auto;
-  min-height: 75vh !important;
-  width: 100%;
   position: absolute !important;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) !important;
+  max-width: 80vw !important;
+  max-height: 80vh !important;
 }

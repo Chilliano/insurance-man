@@ -129,19 +129,19 @@ export class ListModalComponent implements OnInit {
             this.selection.select(row);
           }
         });
-
   }
 
-  openInsuranceCardModal(row){
-    let dialogRef = this.dialog.open(InsuranceCardComponent, {
-      width: '250px',
-      data: row
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-    });
+  openInsuranceCardModal(row) {
+    console.log('open insurance card modal here');
+    // let dialogRef = this.dialog.open(InsuranceCardComponent, {
+    //   width: '250px',
+    //   data: row
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (!result) {
+    //     return;
+    //   }
+    // });
   }
 
   logSelected() {

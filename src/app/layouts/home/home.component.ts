@@ -9,9 +9,24 @@ import { AuthService } from 'app/services/auth.service';
 export class HomeComponent implements OnInit {
   spinNow = false;
   displayNow = false;
+  displayFakeCredentials = false;
   constructor(public auth: AuthService) {}
 
   ngOnInit() {
     this.spinNow = true;
+  }
+
+  displayFakeCredentialsToggle() {
+    this.displayFakeCredentials = !this.displayFakeCredentials;
+  }
+
+  copyFunction(type) {
+    var copyText =
+      type === 'name'
+        ? (document.getElementById('nameInput') as HTMLInputElement)
+        : (document.getElementById('passwordInput') as HTMLInputElement);
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    document.execCommand('copy');
   }
 }

@@ -17,5 +17,11 @@ export class SelectModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('data is ', this.data);
+  }
+
+  retrieveImage() {
+    return `../../../assets/insuranceImages/${this.data['brand-image']}`;
+  }
 }
