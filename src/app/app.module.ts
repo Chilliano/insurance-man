@@ -29,6 +29,7 @@ import { LogoComponent } from 'app/components/common/logo/logo.component';
 import { SocialButtonComponent } from 'app/components/common/social-button/social-button.component';
 import { TestTable3Component } from 'app/components/tables/test-table3/test-table3.component';
 import { MiniListComponent } from './components/mini-list/mini-list.component';
+import { InsuranceCardComponent } from './modals/insurance-card/insurance-card.component';
 
 // firebase app config
 const config = {
@@ -57,7 +58,8 @@ const config = {
     LogoComponent,
     SocialButtonComponent,
     TestTable3Component,
-    MiniListComponent
+    MiniListComponent,
+    InsuranceCardComponent
   ],
   imports: [
     BrowserModule,

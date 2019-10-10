@@ -64,6 +64,7 @@ th.mat-sort-header-sorted {
     overflow: auto;
     max-height: 100%;
     grid-template-rows: auto 1fr auto;
+    padding: 1rem 0;
     div {
       margin: 2px;
       height: fit-content;
@@ -80,6 +81,21 @@ th.mat-sort-header-sorted {
     justify-content: space-around;
     margin-bottom: 1rem;
     background-image: linear-gradient(top, #f2f2f2, #e6e6e6);
+
+    @media only screen and (max-width: $desktop) {
+      display: grid;
+      grid-auto-flow: row;
+      justify-content: center;
+      justify-items: center;
+      padding: 1rem 0;
+    }
+
+    .fields {
+      @media only screen and (max-width: $desktop) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
   }
   &--table {
     height: 100%;
@@ -99,8 +115,12 @@ th.mat-sort-header-sorted {
       padding: 1rem;
       border-left: 2px solid #aaa;
       margin-top: 1rem;
+
       h1 {
         margin: 0;
+        @media only screen and (max-width: $desktop) {
+          font-size: 20px !important;
+        }
       }
     }
   }
@@ -109,6 +129,12 @@ th.mat-sort-header-sorted {
     grid-auto-flow: column;
     align-items: center;
     justify-content: space-between;
+    @media only screen and (max-width: $desktop) {
+      display: grid;
+      grid-auto-flow: row;
+      width: 100%;
+      justify-content: center;
+    }
   }
   &--paginator {
     display: grid;
@@ -122,6 +148,11 @@ th.mat-sort-header-sorted {
     grid-auto-flow: column;
     justify-content: flex-start;
     grid-gap: 1rem;
+    button {
+      @media only screen and (max-width: $desktop) {
+        font-size: 12px;
+      }
+    }
   }
   &--current-list {
     cursor: pointer;
@@ -158,6 +189,9 @@ th.mat-sort-header-sorted {
   }
   .mat {
     &-form-field {
+      @media only screen and (max-width: $desktop) {
+        font-size: 10px;
+      }
       &-wrapper {
         padding: 0;
         margin: 0.5rem !important;

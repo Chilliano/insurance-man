@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ProductsService } from 'app/services/products.service';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { InsuranceCardComponent } from 'app/modals/insurance-card/insurance-card.component';
 @Component({
   selector: 'app-list-modal',
   templateUrl: './list-modal.component.html',
@@ -129,6 +130,18 @@ export class ListModalComponent implements OnInit {
           }
         });
 
+  }
+
+  openInsuranceCardModal(row){
+    let dialogRef = this.dialog.open(InsuranceCardComponent, {
+      width: '250px',
+      data: row
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+    });
   }
 
   logSelected() {
