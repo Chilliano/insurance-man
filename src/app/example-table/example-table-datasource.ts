@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map, filter } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
 
 import {
   Observable,
@@ -29,12 +30,14 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   private isEmptySource = new BehaviorSubject<boolean>(true);
   public isEmpty$ = this.isEmptySource.asObservable();
 
-  constructor(private productsService: ProductsService) {
+  constructor(
+    private productsService: ProductsService,
+    private cdRef: ChangeDetectorRef
+  ) {
     super();
   }
 
   init(): Observable<ProductModel[]> {
-    this.loadingSource.next(true);
     this.productsService.products.subscribe(res => (this.data = res));
     const dataMutations = [
       this.data,
@@ -48,8 +51,8 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
       })
     );
     res.subscribe(products => {
-      this.loadingSource.next(false);
       this.isEmptySource.next(products.length === 0);
+      this.cdRef.detectChanges();
     });
     return res;
   }

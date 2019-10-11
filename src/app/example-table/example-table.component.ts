@@ -14,6 +14,7 @@ import { ProductModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products/products.service';
 import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-example-table',
@@ -45,10 +46,13 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     price: ''
   };
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.dataSource = new ExampleTableDataSource(this.productsService);
+    this.dataSource = new ExampleTableDataSource(this.productsService, this.cdRef);
     this.setColumns();
   }
 
@@ -94,7 +98,6 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
     this.dataSource.init();
-
   }
 
   retrieveImage(p) {

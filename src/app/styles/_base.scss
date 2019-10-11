@@ -3,5 +3,5 @@
   height: 100vh;
   overflow: auto;
   display: grid;
-  grid-template-rows: 5rem 0 auto $footer-height;
+  grid-template-rows: $header-height 0 auto $footer-height;
 }
