@@ -19,7 +19,6 @@ import { InsuranceManagerComponent } from 'app/layouts/insurance-manager/insuran
 import { NoAccessComponent } from 'app/layouts/no-access/no-access.component';
 
 // components
-import { ProductDataTableComponent } from 'app/components/tables/product-data-table/product-data-table.component';
 import { TestTableComponent } from 'app/components/tables/test-table/test-table.component';
 import { SelectModalComponent } from 'app/modals/select-modal/select-modal.component';
 import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
@@ -27,9 +26,9 @@ import { HeaderComponent } from 'app/components/common/header/header.component';
 import { FooterComponent } from 'app/components/common/footer/footer.component';
 import { LogoComponent } from 'app/components/common/logo/logo.component';
 import { SocialButtonComponent } from 'app/components/common/social-button/social-button.component';
-import { TestTable3Component } from 'app/components/tables/test-table3/test-table3.component';
 import { MiniListComponent } from './components/mini-list/mini-list.component';
 import { InsuranceCardComponent } from './modals/insurance-card/insurance-card.component';
+import { ProductsTableComponent } from './components/products-table/products-table.component';
 
 // firebase app config
 const config = {
@@ -49,7 +48,6 @@ const config = {
     HomeComponent,
     InsuranceManagerComponent,
     NoAccessComponent,
-    ProductDataTableComponent,
     TestTableComponent,
     SelectModalComponent,
     ListModalComponent,
@@ -57,9 +55,9 @@ const config = {
     FooterComponent,
     LogoComponent,
     SocialButtonComponent,
-    TestTable3Component,
     MiniListComponent,
-    InsuranceCardComponent
+    InsuranceCardComponent,
+    ProductsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +69,7 @@ const config = {
     AngularFireAuthModule,
     AngularFireStorageModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   entryComponents: [SelectModalComponent, ListModalComponent],
