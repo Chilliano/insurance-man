@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { ProductsService } from 'app/services/products.service';
 import { AuthService } from 'app/services/auth.service';
+import { ProductsViews } from 'app/components/products-table/products-views';
 
 @Component({
   selector: 'app-insurance-manager',
@@ -8,9 +9,10 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./insurance-manager.component.scss']
 })
 export class InsuranceManagerComponent implements OnInit {
+  productsView = ProductsViews.PRODUCTS;
+
   constructor(public auth: AuthService) // private product: ProductsService
   {}
-  displayedColumns: string[] = ['name', 'brand', 'price', 'kind', 'id'];
 
   ngOnInit() {
     // console.log('this.auth is ', this.auth.user$);

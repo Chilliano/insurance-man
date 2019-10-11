@@ -9,38 +9,14 @@ import {
   BehaviorSubject,
   SubscriptionLike
 } from 'rxjs';
-import { ProductsService } from 'app/services/products.service';
+import { ProductsService } from 'app/services/products/products.service';
 import { ProductModel } from 'app/models/product.model';
+import { InsuranceProducts } from '../tables/test-table/InsuranceProducts.json';
 
 // TODO: Replace this with your own data model type
-export interface ProductsTableItem {
-  name: string;
-  id: number;
-}
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: ProductsTableItem[] = [
-  { id: 1, name: 'Hydrogen' },
-  { id: 2, name: 'Helium' },
-  { id: 3, name: 'Lithium' },
-  { id: 4, name: 'Beryllium' },
-  { id: 5, name: 'Boron' },
-  { id: 6, name: 'Carbon' },
-  { id: 7, name: 'Nitrogen' },
-  { id: 8, name: 'Oxygen' },
-  { id: 9, name: 'Fluorine' },
-  { id: 10, name: 'Neon' },
-  { id: 11, name: 'Sodium' },
-  { id: 12, name: 'Magnesium' },
-  { id: 13, name: 'Aluminum' },
-  { id: 14, name: 'Silicon' },
-  { id: 15, name: 'Phosphorus' },
-  { id: 16, name: 'Sulfur' },
-  { id: 17, name: 'Chlorine' },
-  { id: 18, name: 'Argon' },
-  { id: 19, name: 'Potassium' },
-  { id: 20, name: 'Calcium' }
-];
+const PRODUCT_DATA: ProductModel[] = InsuranceProducts;
 
 /**
  * Data source for the ProductsTable view. This class should
@@ -48,11 +24,10 @@ const EXAMPLE_DATA: ProductsTableItem[] = [
  * (including sorting, pagination, and filtering).
  */
 
-export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
-  data: ProductsTableItem[] = EXAMPLE_DATA;
-  paginator: MatPaginator;
+export class ProductsTableDataSource extends DataSource<ProductModel> {
+  public data: ProductModel[] = PRODUCT_DATA;
   sort: MatSort;
-
+  paginator: MatPaginator;
   private _subscriptions: SubscriptionLike[];
   private productsSource = new BehaviorSubject<ProductModel[]>([]);
   public products$ = this.productsSource.asObservable();
@@ -72,9 +47,15 @@ export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
 
   constructor(
     private productsService: ProductsService,
-    protected columns?: string[]
+    public _paginator: MatPaginator,
+    protected columns?: string[],
   ) {
     super();
+
+    if (columns) {
+      this._displayedColumns = columns;
+    }
+    this.paginator = _paginator;
   }
 
   /**
@@ -82,19 +63,22 @@ export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<ProductsTableItem[]> {
+  connect(): Observable<ProductModel[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
+    console.log('this.paginator here is ', this.paginator);
     const dataMutations = [
-      // observableOf(this.data),
       this.products$,
-      this.paginator.page,
+      // this.paginator.page,
       this.sort.sortChange
     ];
 
     return merge(...dataMutations).pipe(
       map(() => {
-        return this.getPagedData(this.getSortedData([...this.data]));
+        const res = this.getSortedData([...this.data]);
+        // const res = this.getPagedData(this.getSortedData([...this.data]));
+        console.log('response is ', res);
+        return res;
       })
     );
   }
@@ -111,7 +95,8 @@ export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: ProductsTableItem[]) {
+  private getPagedData(data: ProductModel[]) {
+    console.log('paginator is ', this.paginator);
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -120,7 +105,7 @@ export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: ProductsTableItem[]) {
+  private getSortedData(data: ProductModel[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -130,8 +115,8 @@ export class ProductsTableDataSource extends DataSource<ProductsTableItem> {
       switch (this.sort.active) {
         case 'name':
           return compare(a.name, b.name, isAsc);
-        case 'id':
-          return compare(+a.id, +b.id, isAsc);
+        // case 'id':
+        //   return compare(+a.id, +b.id, isAsc);
         default:
           return 0;
       }

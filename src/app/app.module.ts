@@ -29,6 +29,10 @@ import { SocialButtonComponent } from 'app/components/common/social-button/socia
 import { MiniListComponent } from './components/mini-list/mini-list.component';
 import { InsuranceCardComponent } from './modals/insurance-card/insurance-card.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
+import { ExampleTableComponent } from './example-table/example-table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 // firebase app config
 const config = {
@@ -58,6 +62,7 @@ const config = {
     MiniListComponent,
     InsuranceCardComponent,
     ProductsTableComponent,
+    ExampleTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +75,9 @@ const config = {
     AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [],
   entryComponents: [SelectModalComponent, ListModalComponent],

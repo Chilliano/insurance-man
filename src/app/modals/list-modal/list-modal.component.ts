@@ -8,7 +8,7 @@ import {
 } from '@angular/material';
 import { ProductModel } from 'app/models/product.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ProductsService } from 'app/services/products.service';
+import { ProductsService } from 'app/services/products/products.service';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { InsuranceCardComponent } from 'app/modals/insurance-card/insurance-card.component';

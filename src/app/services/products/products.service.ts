@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { ProductModel } from 'app/models/product.model';
 import { BehaviorSubject } from 'rxjs';
+import { InsuranceProducts } from 'app/services/products/InsuranceProducts.json';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private stateSource = new BehaviorSubject<any>([]);
-  stateO = this.stateSource.asObservable();
 
-  constructor() {}
+  public productsSource = new BehaviorSubject<ProductModel[]>([]);
+  public products = this.productsSource.asObservable();
 
-  get favourites() {
-    return this.stateO;
+  private favouritesSource = new BehaviorSubject<ProductModel[]>([]);
+  public favourites = this.favouritesSource.asObservable();
+
+  constructor() {
+    this.productsSource.next(InsuranceProducts);
   }
+
+
+  
+
+  // old 
 
   rootReducer(state, action) {
     switch (action.type) {
       case 'FAVOURITES_ADD':
         const newFavouritesState = state.concat(action.payload);
-        this.stateSource.next(newFavouritesState);
+        // this.stateSource.next(newFavouritesState);
         break;
       case 'FAVOURITES_REMOVE':
         // console.log('current state is ', state);
@@ -26,14 +35,13 @@ export class ProductsService {
         // console.log('current productsToRemove is ', productsToRemove);
         const updatedState = state;
 
-
         productsToRemove.forEach(f => {
-          const exists = updatedState.indexOf(f)  > -1;
+          const exists = updatedState.indexOf(f) > -1;
           if (exists) {
             updatedState.splice(updatedState.indexOf(f), 1);
           }
         });
-        this.stateSource.next(updatedState);
+        // this.stateSource.next(updatedState);
         break;
       default:
         break;
@@ -52,12 +60,12 @@ export class ProductsService {
 
   addToFavourites(products: ProductModel[]) {
     const action = this.addFavourite(products);
-    this.rootReducer(this.stateSource.getValue(), action);
+    // this.rootReducer(this.stateSource.getValue(), action);
   }
 
   removeFromFavourites(products: ProductModel[]) {
-    console.log('this.stateSource.getValue() is ', this.stateSource.getValue());
+    // console.log('this.stateSource.getValue() is ', this.stateSource.getValue());
     const action = this.removeFavourite(products);
-    this.rootReducer(this.stateSource.getValue(), action);
+    // this.rootReducer(this.stateSource.getValue(), action);
   }
 }

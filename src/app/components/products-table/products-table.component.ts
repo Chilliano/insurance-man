@@ -8,15 +8,12 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import {
-  ProductsTableDataSource,
-  ProductsTableItem
-} from './products-table-datasource';
+import { ProductsTableDataSource } from './products-table-datasource';
 import { ProductsViews } from './products-views';
 import { ProductModel } from 'app/models/product.model';
 import { SubscriptionLike } from 'rxjs';
 
-import { ProductsService } from 'app/services/products.service';
+import { ProductsService } from 'app/services/products/products.service';
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -25,7 +22,7 @@ import { ProductsService } from 'app/services/products.service';
 export class ProductsTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<ProductsTableItem>;
+  @ViewChild(MatTable, { static: false }) table: MatTable<ProductModel>;
 
   @Input() productsViews: ProductsViews = ProductsViews.PRODUCTS;
 
@@ -70,28 +67,33 @@ export class ProductsTableComponent implements AfterViewInit, OnInit {
       //   break;
       default:
         displayedColumns = [
-          'expenseNumber',
-          'purpose',
-          'project',
-          'createdAt',
-          'processedBy',
-          'status'
+          'select',
+          'image',
+          'name',
+          'brand',
+          'kind',
+          'price'
         ];
         break;
     }
 
-    // this.dataSource = new ProductsTableDataSource();
-
     this.dataSource = new ProductsTableDataSource(
       this.productsService,
-      displayedColumns
+      this.paginator,
+      displayedColumns,
     );
+
+    this._subscriptions = [];
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
     this.table.dataSource = this.dataSource;
+    console.log('this.datasource is ', this.dataSource);
+    console.log('this.paginator is ', this.paginator);
+
   }
 
   ngOnDestroy() {

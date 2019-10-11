@@ -1,0 +1,57 @@
+@import '../styles/index';
+
+:host {
+  mat-card.container {
+    width: 100%;
+    border-radius: $border-radius;
+    padding: 0;
+    max-height: 100%;
+
+    table {
+      @include mat-table-columns(
+        (
+          name: (
+            width: 3rem
+          )
+        )
+      );
+    }
+  }
+
+  mat-paginator {
+    border-top: 0.0625rem solid ghostwhite;
+  }
+
+  .brand-image {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.container--filters {
+  z-index: 1;
+  box-shadow: 2px 2px 9px 0px rgba(0, 0, 0, 0.75);
+  background: white;
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+  background-image: linear-gradient(to top, #f2f2f2, #e6e6e6);
+
+  @media only screen and (max-width: $desktop) {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: center;
+    justify-items: center;
+    padding: 1rem 0;
+  }
+
+  .fields {
+    @media only screen and (max-width: $desktop) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

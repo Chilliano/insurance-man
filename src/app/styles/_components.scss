@@ -1,0 +1,48 @@
+body {
+  table {
+    max-width: 100%;
+    width: 100%;
+    border-radius: $border-radius;
+
+    .mat-header-row {
+      position: sticky;
+      top: 0;
+      background-color: inherit;
+      z-index: 9999;
+    }
+
+    .mat-header-row:first-child {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+
+      > th:first-child {
+        border-top-left-radius: $border-radius;
+      }
+      > th:last-child {
+        border-top-right-radius: $border-radius;
+      }
+    }
+
+    .mat-row:last-child {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+
+      > td:first-child {
+        border-bottom-left-radius: $border-radius;
+      }
+      > td:last-child {
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+    .mat-row {
+      background-color: rgba(133, 20, 75, 0.089);
+      &:nth-child(even) {
+        background-color: rgba(133, 20, 75, 0.212);
+      }
+      &:hover {
+        background-color: $red;
+        cursor: pointer;
+      }
+    }
+  }
+}

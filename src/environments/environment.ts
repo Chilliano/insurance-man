@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+  images: {
+    noData: '/assets/no-data.svg'
+  }
 };
 
 /*

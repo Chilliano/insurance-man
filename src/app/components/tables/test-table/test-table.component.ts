@@ -14,7 +14,7 @@ import { SelectModalComponent } from 'app/modals/select-modal/select-modal.compo
 import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ProductModel } from 'app/models/product.model';
-import { ProductsService } from 'app/services/products.service';
+import { ProductsService } from 'app/services/products/products.service';
 import { Subscription, of } from 'rxjs';
 @Component({
   selector: 'app-test-table',
@@ -204,12 +204,12 @@ export class TestTableComponent implements OnInit {
   }
 
   subscribeToFavourites() {
-    this.favouritesSubscription = this.productsService.favourites.subscribe(
-      res => {
-        this.favourites = res;
-        console.log('favourites updated to  ', this.favourites);
-      }
-    );
+    // this.favouritesSubscription = this.productsService.favourites.subscribe(
+    //   res => {
+    //     this.favourites = res;
+    //     console.log('favourites updated to  ', this.favourites);
+    //   }
+    // );
   }
 
   setDataSourceVariables() {
