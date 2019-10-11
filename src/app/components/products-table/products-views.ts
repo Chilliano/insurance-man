@@ -1,4 +1,4 @@
-export enum ProductViews {
+export enum ProductsViews {
   PRODUCTS = 'products',
   FAVOURITES = 'favourites',
 }

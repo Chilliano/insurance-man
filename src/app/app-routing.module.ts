@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'insurance-manager',
     component: InsuranceManagerComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   { path: 'no-access', component: NoAccessComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
