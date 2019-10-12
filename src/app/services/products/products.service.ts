@@ -27,7 +27,7 @@ export class ProductsService {
     switch (action.type) {
       case 'FAVOURITES_ADD':
         const newFavouritesState = state.concat(action.payload);
-        // this.stateSource.next(newFavouritesState);
+        this.favouritesSource.next(newFavouritesState);
         break;
       case 'FAVOURITES_REMOVE':
         // console.log('current state is ', state);
@@ -60,12 +60,11 @@ export class ProductsService {
 
   addToFavourites(products: ProductModel[]) {
     const action = this.addFavourite(products);
-    // this.rootReducer(this.stateSource.getValue(), action);
+    this.rootReducer(this.favouritesSource.getValue(), action);
   }
 
   removeFromFavourites(products: ProductModel[]) {
-    // console.log('this.stateSource.getValue() is ', this.stateSource.getValue());
     const action = this.removeFavourite(products);
-    // this.rootReducer(this.stateSource.getValue(), action);
+    this.rootReducer(this.favouritesSource.getValue(), action);
   }
 }

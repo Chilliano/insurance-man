@@ -19,6 +19,8 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   _subscriptions: SubscriptionLike[] = [];
 
   data: ProductModel[] = [];
+  favourites: ProductModel[] = [];
+
   paginator: MatPaginator;
   sort: MatSort;
 
@@ -30,6 +32,8 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   private isEmptySource = new BehaviorSubject<boolean>(true);
   public isEmpty$ = this.isEmptySource.asObservable();
 
+ 
+
   constructor(
     private productsService: ProductsService,
     private cdRef: ChangeDetectorRef
@@ -39,6 +43,7 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
 
   init(): Observable<ProductModel[]> {
     this.productsService.products.subscribe(res => (this.data = res));
+    this.productsService.favourites.subscribe(res => (this.favourites = res));
     const dataMutations = [
       this.data,
       this.paginator.page,

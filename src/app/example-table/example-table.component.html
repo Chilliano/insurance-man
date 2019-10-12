@@ -25,7 +25,12 @@
         [formControl]="kindFilter"
       />
     </mat-form-field>
-    <mat-form-field appearance="outline" class="filter" floatLabel="never">
+    <mat-form-field
+      *ngIf="productsViews !== 'favourites'"
+      appearance="outline"
+      class="filter"
+      floatLabel="never"
+    >
       <mat-label>Price</mat-label>
       <input
         (keyup)="applyFilter($event.target.value)"
@@ -34,13 +39,20 @@
       />
     </mat-form-field>
   </div>
+  <button class="btn btn-dark" (click)="onSaveSelected()">Save Selected</button>
+  <button class="btn btn-dark" (click)="onRemoveSelected()">
+    Remove Selected
+  </button>
+  <button class="btn btn-dark" (click)="onDisplayFavourites()">
+    Display Favourites
+  </button>
 </div>
 
 <mat-card class="container">
   <mat-card-content fxFlex class="content" fxLayout="column">
     <div class="mat-elevation-z8">
       <table mat-table class="full-width-table " matSort aria-label="Elements">
-        <!-- <ng-container matColumnDef="select">
+        <ng-container matColumnDef="select">
           <th class="header header--select" mat-header-cell *matHeaderCellDef>
             <mat-checkbox
               (change)="$event ? masterToggle() : null"
@@ -51,14 +63,13 @@
           </th>
           <td mat-header-cell mat-cell *matCellDef="let row">
             <mat-checkbox
-              [ngClass]="{ listed: favourites.indexOf(row) > -1 }"
               (click)="$event.stopPropagation()"
               (change)="$event ? selection.toggle(row) : null"
               [checked]="selection.isSelected(row)"
             >
             </mat-checkbox>
           </td>
-        </ng-container> -->
+        </ng-container>
         <ng-container matColumnDef="image">
           <th
             class="header header--image"

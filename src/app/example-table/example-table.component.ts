@@ -15,6 +15,7 @@ import { ProductsService } from 'app/services/products/products.service';
 import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-example-table',
@@ -31,7 +32,6 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   imgNoData = environment.images.noData;
   dataSource: ExampleTableDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [];
 
   // filters
@@ -46,13 +46,18 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     price: ''
   };
 
+  selection = new SelectionModel<ProductModel>(true, []);
+
   constructor(
     private productsService: ProductsService,
     private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.dataSource = new ExampleTableDataSource(this.productsService, this.cdRef);
+    this.dataSource = new ExampleTableDataSource(
+      this.productsService,
+      this.cdRef
+    );
     this.setColumns();
   }
 
@@ -61,17 +66,11 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
     switch (this.productsViews) {
       case ProductsViews.FAVOURITES:
-        displayedColumns = [
-          // 'select',
-          'image',
-          'name',
-          'brand',
-          'kind'
-        ];
+        displayedColumns = ['select', 'image', 'name', 'brand', 'kind'];
         break;
       case ProductsViews.PRODUCTS:
         displayedColumns = [
-          // 'select',
+          'select',
           'image',
           'name',
           'brand',
@@ -81,7 +80,7 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
         break;
       default:
         displayedColumns = [
-          // 'select',
+          'select',
           'image',
           'name',
           'brand',
@@ -107,4 +106,66 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  isAllSelected() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    const numSelected = this.selection.selected.length;
+    const numRows = availablePaginatedRows.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => {
+          if (availablePaginatedRows.indexOf(row) > -1) {
+            this.selection.select(row);
+          }
+        });
+  }
+
+  onSaveSelected() {
+    if (!this.selection.selected.length) {
+      return;
+    }
+    const finalSelection = this.selection.selected.filter(
+      s => this.dataSource.favourites.indexOf(s) === -1
+    );
+    this.dataSource.favourites = this.dataSource.favourites.concat(
+      finalSelection
+    );
+    this.productsService.addToFavourites(finalSelection);
+
+    // log results to keep check
+    console.log('datasource favs now at ', this.dataSource.favourites);
+    this.productsService.favourites.subscribe(res =>
+      console.log('res is ', res)
+    );
+  }
+
+  onRemoveSelected() {
+    const productsToRemove = this.selection.selected;
+    this.productsService.removeFromFavourites(productsToRemove);
+    console.log('datasource favs now at ', this.dataSource.favourites);
+    this.productsService.favourites.subscribe(res =>
+      console.log('res is ', res)
+    );
+  }
+
+  // onDisplayFavourites(): void {
+  //   let dialogRef = this.dialog.open(ListModalComponent, {
+  //     width: '250px',
+  //     data: this.favourites
+  //   });
+  //   // dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
+  //   // dialogRef.componentInstance.favourites = this.favourites;
+  //   dialogRef.componentInstance.selection.toggle = this.selection.toggle;
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (!result) {
+  //       return;
+  //     }
+  //   });
+  // }
 }
