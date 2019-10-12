@@ -3,14 +3,20 @@
 .navbar {
   position: relative;
   background-color: $red;
-  height: $header-height;
+  min-height: $header-height;
   max-width: 100vw;
+  padding: 1rem 1rem;
+
   &-brand {
     width: $brand-width;
     height: $brand-height;
     position: relative;
     margin: 0;
     padding: 0;
+    pointer-events: none;
+  }
+  &-collapse {
+    padding-top: 1rem;
   }
 }
 
@@ -18,9 +24,9 @@
   padding: 2px;
   margin-left: 7px;
   &.logout {
-    // @media only screen and (min-width: $desktop) {
-    //   display: none;
-    // }
+    @include respond(tab) {
+      display: none;
+    }
   }
 }
 
@@ -37,10 +43,10 @@
   }
 }
 
-.navbar-brand {
-  pointer-events: none;
-  font-size: 20px;
-}
+// .navbar-brand {
+//   pointer-events: none;
+//   font-size: 20px;
+// }
 
 .bd-placeholder-img {
   font-size: 1.125rem;
