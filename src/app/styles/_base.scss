@@ -1,3 +1,27 @@
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+td.mat-cell,
+th.header {
+  font-size: 75%; // 1 rem = 10px;10px/16px = 62.5%;
+  @include respond(desktop) {
+    font-size: 75%; // 1 rem = 12; 12/16px = 75%;
+  }
+  @include respond(tab) {
+    font-size: 56.25%; // 1 rem = 8px;8px/16px = 50%;
+  }
+  @include respond(phone) {
+    font-size: 50%; // 1 rem = 9px;9px/16px = 56.25%;
+  }
+}
+
 .base-container {
   height: 100vh;
   overflow: auto;

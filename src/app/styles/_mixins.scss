@@ -29,19 +29,19 @@ $breakpoint argument choices:
 
 @mixin respond($breakpoint) {
   @if $breakpoint==phone {
-    @media (max-width: $breakpoint-phone 35.5em) {
+    @media (max-width: $breakpoint-phone ) {
       //568px
       @content;
     }
   }
   @if $breakpoint==tab {
-    @media (max-width: $breakpoint-tab 64em) {
+    @media (max-width: $breakpoint-tab ) {
       // 1024px
       @content;
     }
   }
   @if $breakpoint==desktop {
-    @media (max-width: $breakpoint-desktop 75em) {
+    @media (max-width: $breakpoint-desktop) {
       // 1200px
       @content;
     }
