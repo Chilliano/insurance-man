@@ -82,20 +82,20 @@ th.mat-sort-header-sorted {
     margin-bottom: 1rem;
     background-image: linear-gradient(to top, #f2f2f2, #e6e6e6);
 
-    @media only screen and (max-width: $desktop) {
-      display: grid;
-      grid-auto-flow: row;
-      justify-content: center;
-      justify-items: center;
-      padding: 1rem 0;
-    }
+    // @media only screen and (max-width: $desktop) {
+    //   display: grid;
+    //   grid-auto-flow: row;
+    //   justify-content: center;
+    //   justify-items: center;
+    //   padding: 1rem 0;
+    // }
 
-    .fields {
-      @media only screen and (max-width: $desktop) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+    // .fields {
+    //   @media only screen and (max-width: $desktop) {
+    //     display: grid;
+    //     grid-template-columns: 1fr 1fr;
+    //   }
+    // }
   }
   &--table {
     height: 100%;
@@ -118,9 +118,9 @@ th.mat-sort-header-sorted {
 
       h1 {
         margin: 0;
-        @media only screen and (max-width: $desktop) {
-          font-size: 20px !important;
-        }
+        // @media only screen and (max-width: $desktop) {
+        //   font-size: 20px !important;
+        // }
       }
     }
   }
@@ -129,12 +129,12 @@ th.mat-sort-header-sorted {
     grid-auto-flow: column;
     align-items: center;
     justify-content: space-between;
-    @media only screen and (max-width: $desktop) {
-      display: grid;
-      grid-auto-flow: row;
-      width: 100%;
-      justify-content: center;
-    }
+    // @media only screen and (max-width: $desktop) {
+    //   display: grid;
+    //   grid-auto-flow: row;
+    //   width: 100%;
+    //   justify-content: center;
+    // }
   }
   &--paginator {
     display: grid;
@@ -148,11 +148,11 @@ th.mat-sort-header-sorted {
     grid-auto-flow: column;
     justify-content: flex-start;
     grid-gap: 1rem;
-    button {
-      @media only screen and (max-width: $desktop) {
-        font-size: 12px;
-      }
-    }
+    // button {
+    //   @media only screen and (max-width: $desktop) {
+    //     font-size: 12px;
+    //   }
+    // }
   }
   &--current-list {
     cursor: pointer;
@@ -182,9 +182,9 @@ th.mat-sort-header-sorted {
   }
 
   td.mat-cell {
-    @media only screen and (max-width: $desktop) {
-      font-size: 12px;
-    }
+    // @media only screen and (max-width: $desktop) {
+    //   font-size: 12px;
+    // }
   }
 
   td{
@@ -202,9 +202,9 @@ th.mat-sort-header-sorted {
   }
   .mat {
     &-form-field {
-      @media only screen and (max-width: $desktop) {
-        font-size: 10px;
-      }
+      // @media only screen and (max-width: $desktop) {
+      //   font-size: 10px;
+      // }
       &-wrapper {
         padding: 0;
         margin: 0.5rem !important;
@@ -271,15 +271,3 @@ th.mat-sort-header-sorted {
   justify-content: center;
 }
 
-body::after,
-body::before,
-input::after,
-input::before,
-select::after,
-select::before,
-textarea::after,
-textarea::before,
-body *::after,
-body *::before {
-  box-sizing: border-box;
-}

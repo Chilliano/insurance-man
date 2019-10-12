@@ -40,20 +40,20 @@
   margin-bottom: 1rem;
   background-image: linear-gradient(to top, #f2f2f2, #e6e6e6);
 
-  @media only screen and (max-width: $desktop) {
-    display: grid;
-    grid-auto-flow: row;
-    justify-content: center;
-    justify-items: center;
-    padding: 1rem 0;
-  }
+  // @media only screen and (max-width: $desktop) {
+  //   display: grid;
+  //   grid-auto-flow: row;
+  //   justify-content: center;
+  //   justify-items: center;
+  //   padding: 1rem 0;
+  // }
 
-  .fields {
-    @media only screen and (max-width: $desktop) {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+  // .fields {
+  //   @media only screen and (max-width: $desktop) {
+  //     display: grid;
+  //     grid-template-columns: 1fr 1fr;
+  //   }
+  // }
 }
 
 .empty {

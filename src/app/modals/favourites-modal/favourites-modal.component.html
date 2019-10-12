@@ -3,5 +3,7 @@
   <app-example-table [productsViews]="productsView"></app-example-table>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onCancel()">
+    {{ isEmpty ? 'Close' : 'Cancel' }}
+  </button>
 </mat-dialog-actions>

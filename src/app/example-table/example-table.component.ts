@@ -164,7 +164,7 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   onDisplayFavourites(): void {
     let dialogRef = this.dialog.open(FavouritesModalComponent, {
-      width: '250px'
+      width: '250px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
