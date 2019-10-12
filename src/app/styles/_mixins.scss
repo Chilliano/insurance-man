@@ -1,3 +1,5 @@
+// set individual column widths depending on type
+
 @mixin mat-table-columns($columns) {
   .mat-column- {
     @each $colName, $props in $columns {
@@ -8,55 +10,39 @@
         min-width: $width;
         max-width: $width;
 
-        @if map-has-key($props, 'color') {
-          color: map-get($props, 'color');
-        }
       }
     }
   }
 }
 
-// 1) For a regular desktop, use the width of 1200 pixels,
-// 2) for an iPad the format is 768 x 1024 pixels
-// 3) for an iPhone 5 the format is 320 x 568 pixels.
 // MEDIA QUERY MANAGER
-
 /*
-0 - 600px:     Phone
-600 - 900px:   Tablet portrait
-900 - 1200px:  Tablet landscape
-[1200 - 1800]  is where normal styles apply
-1800px + :     Big Desktop
+0 - 568px:     iPhone 5 the format is 320 x 568 pixels.
+568 - 1024px:  iPad the format is 768 x 1024 pixels 
+900 - 1200px:  Desktop
 
 $breakpoint argument choices:
 - phone
-- tab-port
-- tab-land
-- big-desktop
+- tab
+- desktop
 */
 
 @mixin respond($breakpoint) {
   @if $breakpoint==phone {
-    @media (max-width: 37.5em) {
-      //600px
+    @media (max-width: $breakpoint-phone 35.5em) {
+      //568px
       @content;
     }
   }
-  @if $breakpoint==tab-port {
-    @media (max-width: 56.25em) {
-      // 900px
+  @if $breakpoint==tab {
+    @media (max-width: $breakpoint-tab 64em) {
+      // 1024px
       @content;
     }
   }
-  @if $breakpoint==tab-land {
-    @media (max-width: 75em) {
+  @if $breakpoint==desktop {
+    @media (max-width: $breakpoint-desktop 75em) {
       // 1200px
-      @content;
-    }
-  }
-  @if $breakpoint==big-desktop {
-    @media (min-width: 112.5em) {
-      // 1800px+
       @content;
     }
   }

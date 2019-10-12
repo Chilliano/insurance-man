@@ -10,7 +10,7 @@
     table {
       @include mat-table-columns(
         (
-          name: (
+          image: (
             width: 3rem
           )
         )
@@ -25,6 +25,7 @@
   .brand-image {
     width: 20px;
     height: 20px;
+    position: unset;
   }
 }
 
