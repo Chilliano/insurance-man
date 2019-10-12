@@ -16,7 +16,8 @@ import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-
+import { MatDialog } from '@angular/material';
+import { FavouritesModalComponent } from 'app/modals/favourites-modal/favourites-modal.component';
 @Component({
   selector: 'app-example-table',
   templateUrl: './example-table.component.html',
@@ -50,13 +51,15 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     this.dataSource = new ExampleTableDataSource(
       this.productsService,
-      this.cdRef
+      this.cdRef,
+      this.productsViews
     );
     this.setColumns();
   }
@@ -129,43 +132,26 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     if (!this.selection.selected.length) {
       return;
     }
-    const finalSelection = this.selection.selected.filter(
-      s => this.dataSource.favourites.indexOf(s) === -1
-    );
-    this.dataSource.favourites = this.dataSource.favourites.concat(
-      finalSelection
-    );
-    this.productsService.addToFavourites(finalSelection);
-
-    // log results to keep check
-    console.log('datasource favs now at ', this.dataSource.favourites);
-    this.productsService.favourites.subscribe(res =>
-      console.log('res is ', res)
-    );
+    this.productsService.addToFavourites(this.selection.selected);
   }
 
   onRemoveSelected() {
-    const productsToRemove = this.selection.selected;
-    this.productsService.removeFromFavourites(productsToRemove);
-    console.log('datasource favs now at ', this.dataSource.favourites);
-    this.productsService.favourites.subscribe(res =>
-      console.log('res is ', res)
-    );
+    if (!this.selection.selected.length) {
+      return;
+    }
+    this.productsService.removeFromFavourites(this.selection.selected);
   }
 
-  // onDisplayFavourites(): void {
-  //   let dialogRef = this.dialog.open(ListModalComponent, {
-  //     width: '250px',
-  //     data: this.favourites
-  //   });
-  //   // dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
-  //   // dialogRef.componentInstance.favourites = this.favourites;
-  //   dialogRef.componentInstance.selection.toggle = this.selection.toggle;
+  onDisplayFavourites(): void {
+    let dialogRef = this.dialog.open(FavouritesModalComponent, {
+      width: '250px'
+    });
+    // dialogRef.componentInstance.openConfirmDialog = this.openConfirmDialog;
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (!result) {
-  //       return;
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+    });
+  }
 }

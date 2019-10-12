@@ -27,7 +27,6 @@ export class ListModalComponent implements OnInit {
   dataSource = new MatTableDataSource();
   selection = new SelectionModel(true, []);
 
-  columnsToDisplay = ['select', 'name', 'brand', 'kind'];
   filterValues = {
     name: '',
     brand: '',

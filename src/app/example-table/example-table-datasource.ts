@@ -14,6 +14,7 @@ import {
 import { ProductModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products/products.service';
 import { MatTableDataSource } from '@angular/material';
+import { ProductsViews } from 'app/components/products-table/products-views';
 
 export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   _subscriptions: SubscriptionLike[] = [];
@@ -32,18 +33,17 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   private isEmptySource = new BehaviorSubject<boolean>(true);
   public isEmpty$ = this.isEmptySource.asObservable();
 
- 
-
   constructor(
     private productsService: ProductsService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private currentView: ProductsViews
   ) {
     super();
   }
 
   init(): Observable<ProductModel[]> {
-    this.productsService.products.subscribe(res => (this.data = res));
-    this.productsService.favourites.subscribe(res => (this.favourites = res));
+    this.setDataSubscriptions();
+
     const dataMutations = [
       this.data,
       this.paginator.page,
@@ -61,6 +61,11 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
     });
     return res;
   }
+
+  setDataSubscriptions() {
+    this.currentView === ProductsViews.PRODUCTS
+    ? this.productsService.products.subscribe(res => (this.data = res))
+    : this.productsService.favourites.subscribe(res => (this.data = res));  }
 
   disconnect() {
     this.loadingSource.complete();

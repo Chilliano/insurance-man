@@ -1,5 +1,14 @@
-<div class="container--outer">
-  <!-- <div class="filter-options">
+<h1 mat-dialog-title>Add file</h1>
+<mat-dialog-content>
+  <app-example-table></app-example-table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button>Add</button>
+  <button mat-button>Cancel</button>
+</mat-dialog-actions>
+
+<!-- <div class="container--outer">
+  <div class="filter-options">
     <mat-form-field class="filter" floatLabel="never">
       <mat-label>name</mat-label>
       <input matInput [formControl]="nameFilter" />
@@ -16,9 +25,9 @@
       <mat-label>price</mat-label>
       <input matInput [formControl]="priceFilter" />
     </mat-form-field>
-  </div> -->
+  </div>
 
-  <!-- <button (click)="onSearch()">Search</button> -->
+  <button (click)="onSearch()">Search</button>
 
   <div class="container--table">
     Favourites
@@ -114,4 +123,4 @@
       ></mat-paginator>
     </div>
   </div>
-</div>
+</div> -->

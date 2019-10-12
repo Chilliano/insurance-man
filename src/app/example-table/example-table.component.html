@@ -39,11 +39,21 @@
       />
     </mat-form-field>
   </div>
-  <button class="btn btn-dark" (click)="onSaveSelected()">Save Selected</button>
+  <button
+    *ngIf="productsViews !== 'favourites'"
+    class="btn btn-dark"
+    (click)="onSaveSelected()"
+  >
+    Save Selected
+  </button>
   <button class="btn btn-dark" (click)="onRemoveSelected()">
     Remove Selected
   </button>
-  <button class="btn btn-dark" (click)="onDisplayFavourites()">
+  <button
+    *ngIf="productsViews !== 'favourites'"
+    class="btn btn-dark"
+    (click)="onDisplayFavourites()"
+  >
     Display Favourites
   </button>
 </div>

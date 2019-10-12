@@ -7,7 +7,6 @@ import { InsuranceProducts } from 'app/services/products/InsuranceProducts.json'
   providedIn: 'root'
 })
 export class ProductsService {
-
   public productsSource = new BehaviorSubject<ProductModel[]>([]);
   public products = this.productsSource.asObservable();
 
@@ -18,16 +17,17 @@ export class ProductsService {
     this.productsSource.next(InsuranceProducts);
   }
 
-
-  
-
-  // old 
+  // old
 
   rootReducer(state, action) {
     switch (action.type) {
       case 'FAVOURITES_ADD':
         const newFavouritesState = state.concat(action.payload);
         this.favouritesSource.next(newFavouritesState);
+        console.log(
+          'new favourite state is now ',
+          this.favouritesSource.getValue()
+        );
         break;
       case 'FAVOURITES_REMOVE':
         // console.log('current state is ', state);
@@ -58,8 +58,12 @@ export class ProductsService {
     payload: products
   });
 
-  addToFavourites(products: ProductModel[]) {
-    const action = this.addFavourite(products);
+  addToFavourites(selectedProducts: ProductModel[]) {
+    const currentFavourites = this.favouritesSource.getValue();
+    const finalSelection = selectedProducts.filter(
+      s => currentFavourites.indexOf(s) === -1
+    );
+    const action = this.addFavourite(finalSelection);
     this.rootReducer(this.favouritesSource.getValue(), action);
   }
 
