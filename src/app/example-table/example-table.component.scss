@@ -55,3 +55,12 @@
     }
   }
 }
+
+.empty {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  grid-gap: 1rem;
+}

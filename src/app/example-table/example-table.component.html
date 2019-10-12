@@ -141,7 +141,7 @@
     </div>
     <div
       *ngIf="!(dataSource.loading$ | async) && (dataSource.isEmpty$ | async)"
-      class="empty empty-normal"
+      class="empty"
     >
       <img [src]="imgNoData" />
       <span> {{ 'noRecordsFound' }}. </span>
