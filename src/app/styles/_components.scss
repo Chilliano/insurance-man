@@ -67,14 +67,6 @@ body {
     padding: 1rem;
   }
 
-  .mat-checkbox {
-    &.listed {
-      opacity: 0.5;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-  }
-
   .red-snackbar {
     min-width: unset;
     background: $red !important;
