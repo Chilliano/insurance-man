@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsViews } from 'app/components/products-table/products-views';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-favourites-modal',
@@ -9,10 +10,16 @@ import { ProductsViews } from 'app/components/products-table/products-views';
 export class FavouritesModalComponent implements OnInit {
   productsView = ProductsViews.FAVOURITES;
 
-  constructor() { }
-
-  ngOnInit() {
-
+  constructor(
+    public dialogRef: MatDialogRef<FavouritesModalComponent>,
+    public dialog: MatDialog
+  ) {
+    this.dialog = dialog;
   }
 
+  ngOnInit() {}
+
+  onCancel() {
+    this.dialogRef.close();
+  }
 }

@@ -65,7 +65,9 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
   setDataSubscriptions() {
     this.currentView === ProductsViews.PRODUCTS
     ? this.productsService.products.subscribe(res => (this.data = res))
-    : this.productsService.favourites.subscribe(res => (this.data = res));  }
+    : this.productsService.favourites.subscribe(res => (this.data = res)); 
+    console.log('favourites in datasource are ', this.favourites);
+  }
 
   disconnect() {
     this.loadingSource.complete();

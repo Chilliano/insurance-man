@@ -3,6 +3,5 @@
   <app-example-table [productsViews]="productsView"></app-example-table>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button>Add</button>
-  <button mat-button>Cancel</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
 </mat-dialog-actions>

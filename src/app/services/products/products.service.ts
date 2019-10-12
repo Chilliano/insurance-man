@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ProductModel } from 'app/models/product.model';
 import { BehaviorSubject } from 'rxjs';
 import { InsuranceProducts } from 'app/services/products/InsuranceProducts.json';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -48,6 +47,7 @@ export class ProductsService {
     );
     const action = this.addFavourite(finalSelection);
     this.rootReducer(currentFavourites, action);
+   
   }
 
   removeFromFavourites(productsToRemove: ProductModel[]) {

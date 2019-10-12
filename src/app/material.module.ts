@@ -12,7 +12,8 @@ import {
   MatButtonModule,
   MatInputModule,
   MatCheckboxModule,
-  MatCardModule
+  MatCardModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -28,7 +29,8 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     MatTableModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {}

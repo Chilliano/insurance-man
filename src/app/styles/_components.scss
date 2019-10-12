@@ -58,4 +58,35 @@ body {
     transform: translate(-50%, -50%) !important;
     transition: all 0.5s ease;
   }
+
+  .mat-simple-snackbar {
+    text-align: center;
+    text-transform: uppercase;
+    display: grid !important;
+    justify-content: center !important;
+    padding: 1rem;
+  }
+
+  .mat-checkbox {
+    &.listed {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  .red-snackbar {
+    min-width: unset;
+    background: $red !important;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .blue-snackbar {
+    min-width: unset;
+    border: 2px solid ghostwhite;
+    background: $red !important;
+    color: ghostwhite;
+    text-align: center;
+  }
 }
