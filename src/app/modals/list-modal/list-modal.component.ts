@@ -71,11 +71,6 @@ export class ListModalComponent implements OnInit {
   tableFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data, filter): boolean {
       let searchTerms = JSON.parse(filter);
-      console.log('data.name.toLowerCase() is ', data.name.toLowerCase());
-      console.log(
-        'does it exist in here ',
-        data.name.toLowerCase().indexOf(searchTerms.name) !== -1
-      );
       console.log('searchTerms.name is ', searchTerms.name);
       const res =
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
@@ -85,7 +80,6 @@ export class ListModalComponent implements OnInit {
           .toString()
           .toLowerCase()
           .indexOf(searchTerms.price) !== -1;
-      console.log('res is ', res);
       return (
         data.name.toLowerCase().indexOf(searchTerms.name) !== -1 &&
         data.brand.toLowerCase().indexOf(searchTerms.brand) !== -1 &&

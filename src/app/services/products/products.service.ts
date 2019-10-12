@@ -17,31 +17,14 @@ export class ProductsService {
     this.productsSource.next(InsuranceProducts);
   }
 
-  // old
-
   rootReducer(state, action) {
     switch (action.type) {
       case 'FAVOURITES_ADD':
         const newFavouritesState = state.concat(action.payload);
         this.favouritesSource.next(newFavouritesState);
-        console.log(
-          'new favourite state is now ',
-          this.favouritesSource.getValue()
-        );
         break;
       case 'FAVOURITES_REMOVE':
-        // console.log('current state is ', state);
-        const productsToRemove = action.payload;
-        // console.log('current productsToRemove is ', productsToRemove);
-        const updatedState = state;
-
-        productsToRemove.forEach(f => {
-          const exists = updatedState.indexOf(f) > -1;
-          if (exists) {
-            updatedState.splice(updatedState.indexOf(f), 1);
-          }
-        });
-        // this.stateSource.next(updatedState);
+        this.favouritesSource.next(action.payload);
         break;
       default:
         break;
@@ -64,11 +47,15 @@ export class ProductsService {
       s => currentFavourites.indexOf(s) === -1
     );
     const action = this.addFavourite(finalSelection);
-    this.rootReducer(this.favouritesSource.getValue(), action);
+    this.rootReducer(currentFavourites, action);
   }
 
-  removeFromFavourites(products: ProductModel[]) {
-    const action = this.removeFavourite(products);
-    this.rootReducer(this.favouritesSource.getValue(), action);
+  removeFromFavourites(productsToRemove: ProductModel[]) {
+    const currentFavourites = this.favouritesSource.getValue();
+    const finalSelection = currentFavourites.filter(
+      f => productsToRemove.indexOf(f) === -1
+    );
+    const action = this.removeFavourite(finalSelection);
+    this.rootReducer(currentFavourites, action);
   }
 }
