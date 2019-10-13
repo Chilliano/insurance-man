@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ExampleTableDataSource } from './example-table-datasource';
 import { ProductsViews } from 'app/components/products-table/products-views';
-import { ProductModel } from 'app/models/product.model';
+import { ProductModel, FilterModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products/products.service';
 import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
@@ -19,7 +19,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
 import { FavouritesModalComponent } from 'app/modals/favourites-modal/favourites-modal.component';
 import { NotificationAlertsService } from 'app/services/notification-alerts/notification-alerts.service';
-
 @Component({
   selector: 'app-example-table',
   templateUrl: './example-table.component.html',
@@ -50,6 +49,13 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     kind: '',
     price: ''
   };
+
+  filters: FilterModel[] = [
+    { value: 'name', viewValue: 'Name' },
+    { value: 'brand', viewValue: 'Brand' },
+    { value: 'kind', viewValue: 'Kind' },
+    { value: 'price', viewValue: 'Price' }
+  ];
 
   getFilterControl(controlName) {
     switch (controlName) {
@@ -95,7 +101,6 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   setColumns() {
     let displayedColumns: string[];
-
     switch (this.productsViews) {
       case ProductsViews.FAVOURITES:
         displayedColumns = ['select', 'image', 'name', 'brand', 'kind'];

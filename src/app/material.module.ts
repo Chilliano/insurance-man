@@ -13,7 +13,9 @@ import {
   MatInputModule,
   MatCheckboxModule,
   MatCardModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatOptionModule,
+  MatSelectModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
@@ -30,7 +32,9 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatCheckboxModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule {}
