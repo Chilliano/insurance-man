@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FavouritesModalComponent } from './modals/favourites-modal/favourites-modal.component';
+import { InputComponent } from './components/input/input.component';
 
 // firebase app config
 const config = {
@@ -65,6 +66,7 @@ const config = {
     ProductsTableComponent,
     ExampleTableComponent,
     FavouritesModalComponent,
+    InputComponent,
   ],
   imports: [
     BrowserModule,

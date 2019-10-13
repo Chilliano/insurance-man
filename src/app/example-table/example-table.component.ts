@@ -43,12 +43,28 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   brandFilter = new FormControl('');
   kindFilter = new FormControl('');
   priceFilter = new FormControl('');
+  filterNames = ['name', 'brand', 'kind', 'price'];
   filterValues = {
     name: '',
     brand: '',
     kind: '',
     price: ''
   };
+
+  getFilterControl(controlName) {
+    switch (controlName) {
+      case 'name':
+        return this.nameFilter;
+      case 'brand':
+        return this.brandFilter;
+      case 'kind':
+        return this.kindFilter;
+      case 'price':
+        return this.priceFilter;
+      default:
+        break;
+    }
+  }
 
   selection = new SelectionModel<ProductModel>(true, []);
 
@@ -67,6 +83,10 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     );
     this.setColumns();
     this.setSubscriptions();
+  }
+
+  onApplyFilter(event) {
+    console.log('event received is ', event);
   }
 
   setSubscriptions() {
@@ -164,7 +184,7 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   onDisplayFavourites(): void {
     let dialogRef = this.dialog.open(FavouritesModalComponent, {
-      width: '250px',
+      width: '250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -177,6 +197,8 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   isListed(row) {
     const favs = this.favourites;
     const view = this.productsViews;
-    return (favs.indexOf(row) > -1 && view !== ProductsViews.FAVOURITES) ? true : false;
+    return favs.indexOf(row) > -1 && view !== ProductsViews.FAVOURITES
+      ? true
+      : false;
   }
 }

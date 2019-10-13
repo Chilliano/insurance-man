@@ -1,43 +1,13 @@
 <div class="container--filters">
   <div class="title">Filter Results By...</div>
   <div class="fields">
-    <mat-form-field appearance="outline" class="filter" floatLabel="never">
-      <mat-label>Name</mat-label>
-      <input
-        (keyup)="applyFilter($event.target.value)"
-        matInput
-        [formControl]="nameFilter"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="filter" floatLabel="never">
-      <mat-label>Brand</mat-label>
-      <input
-        (keyup)="applyFilter($event.target.value)"
-        matInput
-        [formControl]="brandFilter"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="filter" floatLabel="never">
-      <mat-label>Kind</mat-label>
-      <input
-        (keyup)="applyFilter($event.target.value)"
-        matInput
-        [formControl]="kindFilter"
-      />
-    </mat-form-field>
-    <mat-form-field
-      *ngIf="productsViews !== 'favourites'"
-      appearance="outline"
-      class="filter"
-      floatLabel="never"
-    >
-      <mat-label>Price</mat-label>
-      <input
-        (keyup)="applyFilter($event.target.value)"
-        matInput
-        [formControl]="priceFilter"
-      />
-    </mat-form-field>
+    <div *ngFor="let filterName of filterNames">
+      <app-input
+        [name]="filterName"
+        [control]="getFilterControl(filterName)"
+        (applyFilter)="applyFilter($event.target.value)"
+      ></app-input>
+    </div>
   </div>
   <button
     *ngIf="productsViews !== 'favourites'"
