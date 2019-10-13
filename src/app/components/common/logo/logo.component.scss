@@ -1,12 +1,9 @@
 @import '../../../styles/index.scss';
 .logo {
-  font: 84px 'Arial Narrow', sans-serif;
+  font: 6.4rem 'Arial Narrow', sans-serif;
   color: #fefefe;
   text-transform: uppercase;
   letter-spacing: -4px;
-  // @media only screen and (max-width :  $desktop){
-  //   font-size: 40px;
-  // }
 
   &--container {
     text-align: center;
