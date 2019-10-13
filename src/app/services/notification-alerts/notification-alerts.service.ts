@@ -14,10 +14,10 @@ export class NotificationAlertsService {
   }
 
   warningAlert(message) {
-    this.openSnackBar(message, null, 'blue-snackbar');
+    this.openSnackBar(message, null, 'red-snackbar');
   }
 
   public successAlert(message) {
-    this.openSnackBar(message, null, 'blue-snackbar');
+    this.openSnackBar(message, null, 'red-snackbar');
   }
 }

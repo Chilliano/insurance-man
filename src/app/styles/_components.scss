@@ -69,16 +69,25 @@ body {
 
   .red-snackbar {
     min-width: unset;
-    background: $red !important;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .blue-snackbar {
-    min-width: unset;
     border: 2px solid ghostwhite;
     background: $red !important;
     color: ghostwhite;
     text-align: center;
+  }
+
+  .progress-loader {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    mat-progress-spinner {
+      width: 60px !important;
+      height: 60px !important;
+      svg {
+        width: 60px !important;
+        height: 60px !important;
+      }
+    }
   }
 }
