@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ExampleTableDataSource } from './example-table-datasource';
 import { ProductsViews } from 'app/components/products-table/products-views';
-import { ProductModel, FilterModel } from 'app/models/product.model';
+import { ProductModel } from 'app/models/product.model';
 import { ProductsService } from 'app/services/products/products.service';
 import { environment } from '../../environments/environment';
 import { FormControl } from '@angular/forms';
@@ -19,6 +19,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
 import { FavouritesModalComponent } from 'app/modals/favourites-modal/favourites-modal.component';
 import { NotificationAlertsService } from 'app/services/notification-alerts/notification-alerts.service';
+import { FilterModel } from 'app/models/filter.model';
 @Component({
   selector: 'app-example-table',
   templateUrl: './example-table.component.html',
@@ -36,19 +37,11 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   displayedColumns = [];
   favourites: ProductModel[] = [];
+  
+  selection = new SelectionModel<ProductModel>(true, []);
 
   // filters
-  nameFilter = new FormControl('');
-  brandFilter = new FormControl('');
-  kindFilter = new FormControl('');
-  priceFilter = new FormControl('');
-  filterNames = ['name', 'brand', 'kind', 'price'];
-  filterValues = {
-    name: '',
-    brand: '',
-    kind: '',
-    price: ''
-  };
+  filterControl = new FormControl('');
 
   filters: FilterModel[] = [
     { value: 'name', viewValue: 'Name' },
@@ -57,22 +50,8 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     { value: 'price', viewValue: 'Price' }
   ];
 
-  getFilterControl(controlName) {
-    switch (controlName) {
-      case 'name':
-        return this.nameFilter;
-      case 'brand':
-        return this.brandFilter;
-      case 'kind':
-        return this.kindFilter;
-      case 'price':
-        return this.priceFilter;
-      default:
-        break;
-    }
-  }
+  selectedFilter: FilterModel[] = [{ value: 'name', viewValue: 'Name' }];
 
-  selection = new SelectionModel<ProductModel>(true, []);
 
   constructor(
     private productsService: ProductsService,
@@ -89,10 +68,7 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     );
     this.setColumns();
     this.setSubscriptions();
-  }
-
-  onApplyFilter(event) {
-    console.log('event received is ', event);
+    this.setDataSourceFilter();
   }
 
   setSubscriptions() {
@@ -136,12 +112,22 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     this.dataSource.init();
   }
 
-  retrieveImage(p) {
-    return `../../assets/insuranceImages/${p['brand-image']}`;
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  setDataSourceFilter() {
+    this.dataSource.filterPredicate = (data, filter) => {
+      const searchValue = filter.trim().toLowerCase();
+      const key = this.selectedFilter[0].value;
+      const stringToCheck = data[key].trim().toLowerCase();
+      const res = stringToCheck.includes(searchValue);
+      return res;
+    };
+  }
+
+  onFilterSelect(event) {
+    this.selectedFilter = this.filters.filter(f => f.value === event.value);
   }
 
   isAllSelected() {
@@ -205,5 +191,9 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     return favs.indexOf(row) > -1 && view !== ProductsViews.FAVOURITES
       ? true
       : false;
+  }
+
+  retrieveImage(p) {
+    return `../../assets/insuranceImages/${p['brand-image']}`;
   }
 }

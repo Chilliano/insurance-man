@@ -55,6 +55,10 @@ export class ExampleTableDataSource extends MatTableDataSource<ProductModel> {
         return this.getPagedData(this.getSortedData([...this.data]));
       })
     );
+    console.log('filter here is ', this.filter);
+    console.log('filterPredicate here is ', this.filterPredicate);
+    console.log('filterData  here is ', this.filteredData);
+
     res.subscribe(products => {
       this.isEmptySource.next(products.length === 0);
       this.cdRef.detectChanges();
