@@ -3,6 +3,7 @@ body {
     max-width: 100%;
     width: 100%;
     border-radius: $border-radius;
+
     .cell {
       &--select {
         width: 5rem !important;
@@ -11,12 +12,8 @@ body {
         width: 5rem !important;
         padding: 0 0.5rem;
       }
-      &--name {
-      }
       &--price {
         width: 5rem !important;
-      }
-      &--brand {
       }
     }
     .mat-header-row {
@@ -91,16 +88,6 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 1rem 2rem;
     margin: 1rem 0;
-  }
-  .mat-dialog-container {
-    // max-width: 90vw;
-    // max-height: 80vh !important;
-    // min-width: 70vw;
-    // position: absolute;
-    // left: 50%;
-    // top: 50%;
-    // transform: translate(-50%, -50%) !important;
-    // transition: all 0.5s ease;
   }
 
   .mat-simple-snackbar {
