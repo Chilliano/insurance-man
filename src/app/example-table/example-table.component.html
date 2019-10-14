@@ -1,6 +1,15 @@
 <div class="container--filters">
-  <div class="title">
-    {{ productsViews === 'favourites' ? '' : 'Filter Results By...' }}
+  <div
+    class="container--filters__desktop"
+    [ngClass]="{ favourites: productsViews === 'favourites' }"
+  >
+    <div *ngFor="let filter of filters">
+      <app-input
+        [control]="filterControl"
+        [name]="filter.value"
+        (applyFilter)="applyFilter($event, filter.value)"
+      ></app-input>
+    </div>
   </div>
   <div class="container--filters__phone">
     <div class="dropdown">
@@ -25,26 +34,25 @@
       ></app-input>
     </div>
   </div>
-</div>
-
-<div class="container--buttons">
-  <button
-    *ngIf="productsViews !== 'favourites'"
-    class="btn btn-dark"
-    (click)="onSaveSelected()"
-  >
-    Save Selected
-  </button>
-  <button class="btn btn-dark" (click)="onRemoveSelected()">
-    Remove Selected
-  </button>
-  <button
-    *ngIf="productsViews !== 'favourites'"
-    class="btn btn-dark"
-    (click)="onDisplayFavourites()"
-  >
-    Display Favourites
-  </button>
+  <div class="container--buttons">
+    <button
+      *ngIf="productsViews !== 'favourites'"
+      class="btn btn-dark"
+      (click)="onSaveSelected()"
+    >
+      Save Selected
+    </button>
+    <button class="btn btn-dark" (click)="onRemoveSelected()">
+      Remove Selected
+    </button>
+    <button
+      *ngIf="productsViews !== 'favourites'"
+      class="btn btn-dark"
+      (click)="onDisplayFavourites()"
+    >
+      Display Favourites
+    </button>
+  </div>
 </div>
 
 <mat-card class="container">

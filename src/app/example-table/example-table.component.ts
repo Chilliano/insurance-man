@@ -38,19 +38,9 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   displayedColumns = [];
   favourites: ProductModel[] = [];
 
-  // filters
   filterControl = new FormControl('');
-  // nameFilter = new FormControl('');
-  // brandFilter = new FormControl('');
-  // kindFilter = new FormControl('');
-  // priceFilter = new FormControl('');
 
-  filters: FilterModel[] = [
-    { value: 'name', viewValue: 'Name' },
-    { value: 'brand', viewValue: 'Brand' },
-    { value: 'kind', viewValue: 'Kind' },
-    { value: 'price', viewValue: 'Price' }
-  ];
+  filters: FilterModel[] = [];
 
   selectedFilter: FilterModel[] = [{ value: 'name', viewValue: 'Name' }];
   selection = new SelectionModel<ProductModel>(true, []);
@@ -70,11 +60,27 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     );
     this.setColumns();
     this.setSubscriptions();
+    this.setFilterList();
     this.setDataSourceFilter();
   }
 
   setSubscriptions() {
     this.productsService.favourites.subscribe(res => (this.favourites = res));
+  }
+
+  setFilterList() {
+    let res = [
+      { value: 'name', viewValue: 'Name' },
+      { value: 'brand', viewValue: 'Brand' },
+      { value: 'kind', viewValue: 'Kind' },
+      { value: 'price', viewValue: 'Price' }
+    ];
+
+    if (this.productsViews === ProductsViews.FAVOURITES) {
+      res = res.filter(f => f.value !== 'price');
+    }
+
+    this.filters = res;
   }
 
   setColumns() {
@@ -114,7 +120,14 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
     this.dataSource.init();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(event, type) {
+    const filterValue = event.target.value;
+    const correctFilter = this.filters.filter(f => f.value === type);
+    const same =
+      JSON.stringify(correctFilter[0]) === JSON.stringify(this.selectedFilter);
+    if (!same) {
+      this.selectedFilter = correctFilter;
+    }
     this.dataSource.filter = filterValue;
   }
 

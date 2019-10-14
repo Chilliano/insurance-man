@@ -34,17 +34,7 @@ button {
   padding: 2px 4px !important;
 }
 
-// @include respond (tab) {
-// Making the modal fullscreen in mobiles
 .cdk-overlay-pane {
   width: unset !important;
   max-width: unset !important;
-
-  @include respond(tab) {
-    // width: 80vw !important;
-  }
-  @include respond(phone) {
-    width: 100vw !important;
-  }
 }
-// }

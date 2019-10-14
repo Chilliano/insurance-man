@@ -42,14 +42,38 @@
   display: grid;
   grid-auto-flow: column;
   justify-content: space-around;
+  grid-gap: 1rem;
 }
 
 .container--filters {
   display: grid;
   justify-content: center;
   justify-items: center;
+
   .title {
     font-size: 2rem;
+  }
+  &__desktop {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1rem;
+    @include respond(tab) {
+      grid-template-columns: 1fr 1fr;
+      grid-auto-flow: unset;
+
+      &.favourites > div:nth-child(3) {
+        grid-column: 1/3;
+      }
+    }
+    @include respond(phone) {
+      display: none;
+    }
+  }
+  &__phone {
+    display: none;
+    @include respond(phone) {
+      display: unset;
+    }
   }
   // z-index: 1;
   // box-shadow: 2px 2px 9px 0px rgba(0, 0, 0, 0.75);

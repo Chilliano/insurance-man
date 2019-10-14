@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/services/auth.service';
 import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,12 @@ import { environment } from 'environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(public auth: AuthService) {}
   imgNoData = environment.images.noData;
+  currentRoute;
+  constructor(public auth: AuthService, private router: Router) {
+    router.events.subscribe(res => (this.currentRoute = res));
+    console.log('currentRoute is ', this.currentRoute);
+  }
 
   ngOnInit() {}
 }

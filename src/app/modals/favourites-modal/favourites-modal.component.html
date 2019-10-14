@@ -1,5 +1,9 @@
 <div class="outer-container">
-  <h1 mat-dialog-title>Favourites List</h1>
+    <app-logo
+      [fontSize]="2.4"
+      [word1]="'Favourites List'"
+      [word2]="''"
+    ></app-logo>
   <mat-dialog-content>
     <app-example-table [productsViews]="productsView"></app-example-table>
   </mat-dialog-content>

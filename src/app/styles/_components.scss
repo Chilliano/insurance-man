@@ -3,20 +3,13 @@ body {
     max-width: 100%;
     width: 100%;
     border-radius: $border-radius;
-
-    .mat-header-row {
-      position: sticky;
-      top: 0;
-      background-color: inherit;
-      z-index: 9999;
-    }
     .cell {
       &--select {
         width: 5rem !important;
       }
       &--image {
         width: 5rem !important;
-        padding: 0 .5rem;
+        padding: 0 0.5rem;
       }
       &--name {
       }
@@ -26,8 +19,28 @@ body {
       &--brand {
       }
     }
+    .mat-header-row {
+      position: sticky;
+      top: 0;
+      background-color: inherit;
+      z-index: 9999;
+    }
 
-    .mat-checkbox-layout{
+    @include respond(phone) {
+      td.mat-cell:last-of-type,
+      td.mat-footer-cell:last-of-type,
+      th.mat-header-cell:last-of-type {
+        padding-right: 0;
+      }
+
+      td.mat-cell:first-of-type,
+      td.mat-footer-cell:first-of-type,
+      th.mat-header-cell:first-of-type {
+        padding-left: 2rem;
+      }
+    }
+
+    .mat-checkbox-layout {
       margin: 0;
     }
 

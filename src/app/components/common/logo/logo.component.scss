@@ -1,6 +1,6 @@
 @import '../../../styles/index.scss';
 .logo {
-  font: 6.4rem 'Arial Narrow', sans-serif;
+  font-family: 'Arial Narrow', sans-serif;
   color: #fefefe;
   text-transform: uppercase;
   letter-spacing: -4px;
@@ -9,14 +9,14 @@
     text-align: center;
   }
   .word2 {
-    transition: all 3s;
+    transition: all .3s;
     z-index: 0; /* stack 2nd word below */
   }
   .word1 {
     color: $red;
     display: inline-block; /* required for transform */
     z-index: 10;
-    transition: all 4s;
+    transition: all .4s;
   }
   span {
     position: relative;
