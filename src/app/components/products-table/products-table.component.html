@@ -1,14 +1,18 @@
 <div class="container--filters">
+
+  <!-- // better to move all filter logic in one component-->
+  <!-- // FROM HERE //-->
+
   <div
     class="container--filters__desktop"
     [ngClass]="{ favourites: productsViews === 'favourites' }"
   >
     <div *ngFor="let filter of filters">
-      <app-input
+      <filter-app-input
         [control]="filterControl"
         [name]="filter.value"
         (applyFilter)="applyFilter($event, filter.value)"
-      ></app-input>
+      ></filter-app-input>
     </div>
   </div>
   <div class="container--filters__phone">
@@ -26,12 +30,11 @@
       </mat-form-field>
     </div>
     <div *ngFor="let filter of selectedFilter">
-      <!-- [control]="getFilterControl(filter.value)" -->
-      <app-input
+      <filter-app-input
         [control]="filterControl"
         [name]="filter.value"
         (applyFilter)="applyFilter($event, filter.value)"
-      ></app-input>
+      ></filter-app-input>
     </div>
   </div>
   <div class="container--buttons">
@@ -54,6 +57,7 @@
     </button>
   </div>
 </div>
+  <!-- // TO HERE //-->
 
 <mat-card class="container">
   <mat-card-content fxFlex class="content" fxLayout="column">

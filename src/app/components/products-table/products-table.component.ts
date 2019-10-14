@@ -35,7 +35,7 @@ export class ProductsTableComponent implements AfterViewInit, OnInit {
   imgNoData = environment.images.noData;
   dataSource: ProductsTableDataSource;
 
-  displayedColumns = [];
+  displayedColumns: string[] = [];
   favourites: ProductModel[] = [];
 
   filterControl = new FormControl('');
@@ -114,10 +114,14 @@ export class ProductsTableComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    this.setBaseVariables();
+    this.dataSource.init();
+  }
+
+  setBaseVariables() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-    this.dataSource.init();
   }
 
   applyFilter(event, type) {

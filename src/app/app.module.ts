@@ -23,14 +23,12 @@ import { HeaderComponent } from 'app/components/common/header/header.component';
 import { FooterComponent } from 'app/components/common/footer/footer.component';
 import { LogoComponent } from 'app/components/common/logo/logo.component';
 import { SocialButtonComponent } from 'app/components/common/social-button/social-button.component';
-import { MiniListComponent } from './components/mini-list/mini-list.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FavouritesModalComponent } from './modals/favourites-modal/favourites-modal.component';
-import { InputComponent } from './components/input/input.component';
-
+import { FilterInputComponent } from './components/common/filter-input/filter-input.component';
 // firebase app config
 const config = {
   apiKey: 'AIzaSyBZf2I-_JyV79CpVGz_IWua5BjufJAKvMA',
@@ -53,10 +51,9 @@ const config = {
     FooterComponent,
     LogoComponent,
     SocialButtonComponent,
-    MiniListComponent,
     ProductsTableComponent,
     FavouritesModalComponent,
-    InputComponent
+    FilterInputComponent
   ],
   imports: [
     BrowserModule,

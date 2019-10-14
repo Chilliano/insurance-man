@@ -1,12 +1,11 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
 
 import {
   Observable,
-  of as observableOf,
   merge,
   BehaviorSubject,
   SubscriptionLike

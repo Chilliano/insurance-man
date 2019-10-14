@@ -2,15 +2,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  selector: 'filter-app-input',
+  templateUrl: './filter-input.component.html',
+  styleUrls: ['./filter-input.component.scss']
 })
-export class InputComponent implements OnInit {
+export class FilterInputComponent implements OnInit {
   @Input() name = '';
   @Input()
   control: FormControl;
   @Output() applyFilter = new EventEmitter();
+
   constructor() {}
 
   ngOnInit() {}
