@@ -1,8 +1,5 @@
 <div class="container--filters">
 
-  <!-- // better to move all filter logic in one component-->
-  <!-- // FROM HERE //-->
-
   <div
     class="container--filters__desktop"
     [ngClass]="{ favourites: productsViews === 'favourites' }"
@@ -50,14 +47,13 @@
     </button>
     <button
       *ngIf="productsViews !== 'favourites'"
-      class="btn btn-dark"
+      class="btn btn-warning favourites"
       (click)="onDisplayFavourites()"
     >
       Display Favourites
     </button>
   </div>
 </div>
-  <!-- // TO HERE //-->
 
 <mat-card class="container">
   <mat-card-content fxFlex class="content" fxLayout="column">

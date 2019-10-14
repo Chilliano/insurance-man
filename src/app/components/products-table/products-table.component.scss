@@ -86,3 +86,9 @@
     position: relative;
   }
 }
+
+.btn {
+  &.favourites {
+    background: $yellow;
+  }
+}
