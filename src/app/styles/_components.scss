@@ -10,6 +10,26 @@ body {
       background-color: inherit;
       z-index: 9999;
     }
+    .cell {
+      &--select {
+        width: 5rem !important;
+      }
+      &--image {
+        width: 5rem !important;
+        padding: 0 .5rem;
+      }
+      &--name {
+      }
+      &--price {
+        width: 5rem !important;
+      }
+      &--brand {
+      }
+    }
+
+    .mat-checkbox-layout{
+      margin: 0;
+    }
 
     .mat-header-row:first-child {
       border-top-left-radius: $border-radius;

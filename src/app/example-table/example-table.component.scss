@@ -1,13 +1,18 @@
 @import '../styles/index';
 
 :host {
+  background: white;
   mat-card.container {
     width: 100%;
     border-radius: $border-radius;
     padding: 0;
     max-height: 100%;
-    max-width: 100vw;
     overflow: auto;
+    max-width: 85rem;
+    margin: 0 auto;
+    @include respond(phone) {
+      max-width: 100vw;
+    }
     table {
       @include mat-table-columns(
         (
@@ -24,8 +29,8 @@
   }
 
   .brand-image {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
     position: unset;
   }
 }
@@ -48,7 +53,6 @@
   }
   // z-index: 1;
   // box-shadow: 2px 2px 9px 0px rgba(0, 0, 0, 0.75);
-  background: white;
   display: grid;
   // align-items: center;
   // grid-auto-flow: column;
@@ -81,4 +85,10 @@
   text-align: center;
   grid-gap: 1rem;
   position: relative;
+  justify-items: center;
+  > div {
+    width: 5rem;
+    height: 5rem;
+    position: relative;
+  }
 }
