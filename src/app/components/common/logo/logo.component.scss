@@ -1,7 +1,7 @@
 @import '../../../styles/index.scss';
 .logo {
   font-family: 'Arial Narrow', sans-serif;
-  color: #fefefe;
+  color: $grey;
   text-transform: uppercase;
   letter-spacing: -4px;
 
@@ -11,11 +11,11 @@
   }
   .word2 {
     transition: all 0.3s;
-    z-index: 0; /* stack 2nd word below */
+    z-index: 0; 
   }
   .word1 {
     color: $red;
-    display: inline-block; /* required for transform */
+    display: inline-block;
     z-index: 10;
     transition: all 0.4s;
   }
