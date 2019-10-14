@@ -9,11 +9,17 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ProductsTableDataSource } from './products-table-datasource';
-import { ProductsViews } from './products-views';
+import { ProductsViews } from 'app/models/product-views.model';
 import { ProductModel } from 'app/models/product.model';
-import { SubscriptionLike } from 'rxjs';
-
 import { ProductsService } from 'app/services/products/products.service';
+import { environment } from '../../../environments/environment';
+import { FormControl } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material';
+import { FavouritesModalComponent } from 'app/modals/favourites-modal/favourites-modal.component';
+import { NotificationAlertsService } from 'app/services/notification-alerts/notification-alerts.service';
+import { FilterModel } from 'app/models/filter.model';
 @Component({
   selector: 'app-products-table',
   templateUrl: './products-table.component.html',
@@ -26,45 +32,73 @@ export class ProductsTableComponent implements AfterViewInit, OnInit {
 
   @Input() productsViews: ProductsViews = ProductsViews.PRODUCTS;
 
+  imgNoData = environment.images.noData;
   dataSource: ProductsTableDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  // displayedColumns = ['id', 'name'];
+  displayedColumns = [];
+  favourites: ProductModel[] = [];
 
-  selectedProduct: ProductModel;
+  filterControl = new FormControl('');
 
-  private _subscriptions: SubscriptionLike[];
+  filters: FilterModel[] = [];
 
-  constructor(private productsService: ProductsService) {}
+  selectedFilter: FilterModel[] = [{ value: 'name', viewValue: 'Name' }];
+  selection = new SelectionModel<ProductModel>(true, []);
+
+  constructor(
+    private productsService: ProductsService,
+    private cdRef: ChangeDetectorRef,
+    public dialog: MatDialog,
+    private _notificationAlertsService: NotificationAlertsService
+  ) {}
 
   ngOnInit() {
-    let displayedColumns: string[];
+    this.dataSource = new ProductsTableDataSource(
+      this.productsService,
+      this.cdRef,
+      this.productsViews
+    );
+    this.setColumns();
+    this.setSubscriptions();
+    this.setFilterList();
+    this.setDataSourceFilter();
+  }
 
+  setSubscriptions() {
+    this.productsService.favourites.subscribe(res => (this.favourites = res));
+  }
+
+  setFilterList() {
+    let res = [
+      { value: 'name', viewValue: 'Name' },
+      { value: 'brand', viewValue: 'Brand' },
+      { value: 'kind', viewValue: 'Kind' },
+      { value: 'price', viewValue: 'Price' }
+    ];
+
+    if (this.productsViews === ProductsViews.FAVOURITES) {
+      res = res.filter(f => f.value !== 'price');
+    }
+
+    this.filters = res;
+  }
+
+  setColumns() {
+    let displayedColumns: string[];
     switch (this.productsViews) {
-      // case ExpensesViews.MY_EXPENSES:
-      //   displayedColumns = [
-      //     'expenseNumber',
-      //     'purpose',
-      //     'project',
-      //     'createdAt',
-      //     'processedBy',
-      //     'status',
-      //     'remove'
-      //   ];
-      //   break;
-      // case ExpensesViews.TEAM:
-      // case ExpensesViews.PENDING_APPROVAL:
-      // case ExpensesViews.IN_PROCESS:
-      //   displayedColumns = [
-      //     'expenseNumber',
-      //     'creator',
-      //     'purpose',
-      //     'project',
-      //     'createdAt',
-      //     'processedBy',
-      //     'status'
-      //   ];
-      //   break;
+      case ProductsViews.FAVOURITES:
+        displayedColumns = ['select', 'image', 'name', 'brand', 'kind'];
+        break;
+      case ProductsViews.PRODUCTS:
+        displayedColumns = [
+          'select',
+          'image',
+          'name',
+          'brand',
+          'kind',
+          'price'
+        ];
+        break;
       default:
         displayedColumns = [
           'select',
@@ -76,27 +110,105 @@ export class ProductsTableComponent implements AfterViewInit, OnInit {
         ];
         break;
     }
-
-    this.dataSource = new ProductsTableDataSource(
-      this.productsService,
-      this.paginator,
-      displayedColumns,
-    );
-
-    this._subscriptions = [];
+    this.displayedColumns = displayedColumns;
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-
     this.table.dataSource = this.dataSource;
-    console.log('this.datasource is ', this.dataSource);
-    console.log('this.paginator is ', this.paginator);
-
+    this.dataSource.init();
   }
 
-  ngOnDestroy() {
-    this.dataSource.disconnect();
+  applyFilter(event, type) {
+    const filterValue = event.target.value;
+    const correctFilter = this.filters.filter(f => f.value === type);
+    const same =
+      JSON.stringify(correctFilter[0]) === JSON.stringify(this.selectedFilter);
+    if (!same) {
+      this.selectedFilter = correctFilter;
+    }
+    this.dataSource.filter = filterValue;
+  }
+
+  setDataSourceFilter() {
+    this.dataSource.filterPredicate = (data, filter) => {
+      const searchValue = filter.trim().toLowerCase();
+      const key = this.selectedFilter[0].value;
+      const stringToCheck = data[key].trim().toLowerCase();
+      const res = stringToCheck.includes(searchValue);
+      return res;
+    };
+  }
+
+  onFilterSelect(event) {
+    this.selectedFilter = this.filters.filter(f => f.value === event.value);
+  }
+
+  isAllSelected() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    const numSelected = this.selection.selected.length;
+    const numRows = availablePaginatedRows.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    const availablePaginatedRows = this.dataSource.connect().value;
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => {
+          if (availablePaginatedRows.indexOf(row) > -1) {
+            this.selection.select(row);
+          }
+        });
+  }
+
+  onSaveSelected() {
+    const selectedRows = this.selection.selected;
+
+    if (!selectedRows.length) {
+      return;
+    }
+    this.productsService.addToFavourites(selectedRows);
+
+    const message =
+      selectedRows.length === 1 ? 'Favourite added' : 'Favourites added';
+    this._notificationAlertsService.successAlert(message);
+  }
+
+  onRemoveSelected() {
+    const selectedRows = this.selection.selected;
+    if (!selectedRows.length) {
+      return;
+    }
+    this.productsService.removeFromFavourites(selectedRows);
+    const message =
+      selectedRows.length === 1 ? 'Favourite removed' : 'Favourites removed';
+    this._notificationAlertsService.successAlert(message);
+    selectedRows.forEach(r => this.selection.toggle(r));
+  }
+
+  onDisplayFavourites(): void {
+    let dialogRef = this.dialog.open(FavouritesModalComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+    });
+  }
+
+  isListed(row) {
+    const favs = this.favourites;
+    const view = this.productsViews;
+    return favs.indexOf(row) > -1 && view !== ProductsViews.FAVOURITES
+      ? true
+      : false;
+  }
+
+  retrieveImage(p) {
+    return `../../assets/insuranceImages/${p['brand-image']}`;
   }
 }

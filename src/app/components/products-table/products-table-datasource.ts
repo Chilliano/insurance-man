@@ -1,7 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { ChangeDetectorRef } from '@angular/core';
+
 import {
   Observable,
   of as observableOf,
@@ -9,114 +11,90 @@ import {
   BehaviorSubject,
   SubscriptionLike
 } from 'rxjs';
-import { ProductsService } from 'app/services/products/products.service';
 import { ProductModel } from 'app/models/product.model';
-import { InsuranceProducts } from '../tables/test-table/InsuranceProducts.json';
+import { ProductsService } from 'app/services/products/products.service';
+import { MatTableDataSource } from '@angular/material';
+import { ProductsViews } from 'app/models/product-views.model';
 
-// TODO: Replace this with your own data model type
+export class ProductsTableDataSource extends MatTableDataSource<ProductModel> {
+  _subscriptions: SubscriptionLike[] = [];
 
-// TODO: replace this with real data from your application
-const PRODUCT_DATA: ProductModel[] = InsuranceProducts;
+  data: ProductModel[] = [];
+  favourites: ProductModel[] = [];
 
-/**
- * Data source for the ProductsTable view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
-
-export class ProductsTableDataSource extends DataSource<ProductModel> {
-  public data: ProductModel[] = PRODUCT_DATA;
-  sort: MatSort;
   paginator: MatPaginator;
-  private _subscriptions: SubscriptionLike[];
-  private productsSource = new BehaviorSubject<ProductModel[]>([]);
-  public products$ = this.productsSource.asObservable();
+  sort: MatSort;
 
-  _displayedColumns: string[] = [
-    'select',
-    'image',
-    'name',
-    'brand',
-    'kind',
-    'price'
-  ];
+  private searchFilter$ = new BehaviorSubject<string>(null);
 
-  get displayedColumns(): string[] {
-    return this._displayedColumns;
-  }
+  private loadingSource = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSource.asObservable();
+
+  private isEmptySource = new BehaviorSubject<boolean>(true);
+  public isEmpty$ = this.isEmptySource.asObservable();
 
   constructor(
     private productsService: ProductsService,
-    public _paginator: MatPaginator,
-    protected columns?: string[],
+    private cdRef: ChangeDetectorRef,
+    private currentView: ProductsViews
   ) {
     super();
-
-    if (columns) {
-      this._displayedColumns = columns;
-    }
-    this.paginator = _paginator;
   }
 
-  /**
-   * Connect this data source to the table. The table will only update when
-   * the returned stream emits new items.
-   * @returns A stream of the items to be rendered.
-   */
-  connect(): Observable<ProductModel[]> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    console.log('this.paginator here is ', this.paginator);
+  init(): Observable<ProductModel[]> {
+    this.setDataSubscriptions();
+
     const dataMutations = [
-      this.products$,
-      // this.paginator.page,
+      this.data,
+      this.paginator.page,
       this.sort.sortChange
     ];
 
-    return merge(...dataMutations).pipe(
+    const res = merge(...dataMutations).pipe(
       map(() => {
-        const res = this.getSortedData([...this.data]);
-        // const res = this.getPagedData(this.getSortedData([...this.data]));
-        console.log('response is ', res);
-        return res;
+        return this.getPagedData(this.getSortedData([...this.data]));
       })
     );
+
+    res.subscribe(products => {
+      this.isEmptySource.next(products.length === 0);
+      this.cdRef.detectChanges();
+    });
+    return res;
   }
 
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
+  setDataSubscriptions() {
+    this.currentView === ProductsViews.PRODUCTS
+      ? this.productsService.products.subscribe(res => (this.data = res))
+      : this.productsService.favourites.subscribe(res => (this.data = res));
+  }
+
   disconnect() {
-    this._subscriptions.forEach(s => s.unsubscribe());
+    this.loadingSource.complete();
+    this.isEmptySource.complete();
+    this.searchFilter$.complete();
   }
 
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getPagedData(data: ProductModel[]) {
-    console.log('paginator is ', this.paginator);
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
 
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
   private getSortedData(data: ProductModel[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
-
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'name':
           return compare(a.name, b.name, isAsc);
-        // case 'id':
-        //   return compare(+a.id, +b.id, isAsc);
+        case 'brand':
+          return compare(a.brand, b.brand, isAsc);
+        case 'kind':
+          return compare(a.kind, b.kind, isAsc);
+        case 'price':
+          return compare(+a.price, +b.price, isAsc);
         default:
           return 0;
       }
@@ -124,7 +102,6 @@ export class ProductsTableDataSource extends DataSource<ProductModel> {
   }
 }
 
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

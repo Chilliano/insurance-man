@@ -7,16 +7,17 @@
 
   &--container {
     text-align: center;
+    padding: 2rem 0;
   }
   .word2 {
-    transition: all .3s;
+    transition: all 0.3s;
     z-index: 0; /* stack 2nd word below */
   }
   .word1 {
     color: $red;
     display: inline-block; /* required for transform */
     z-index: 10;
-    transition: all .4s;
+    transition: all 0.4s;
   }
   span {
     position: relative;

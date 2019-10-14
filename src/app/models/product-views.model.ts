@@ -1,4 +1,4 @@
 export enum ProductsViews {
   PRODUCTS = 'products',
-  FAVOURITES = 'favourites',
+  FAVOURITES = 'favourites'
 }

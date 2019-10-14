@@ -19,17 +19,12 @@ import { InsuranceManagerComponent } from 'app/layouts/insurance-manager/insuran
 import { NoAccessComponent } from 'app/layouts/no-access/no-access.component';
 
 // components
-import { TestTableComponent } from 'app/components/tables/test-table/test-table.component';
-import { SelectModalComponent } from 'app/modals/select-modal/select-modal.component';
-import { ListModalComponent } from 'app/modals/list-modal/list-modal.component';
 import { HeaderComponent } from 'app/components/common/header/header.component';
 import { FooterComponent } from 'app/components/common/footer/footer.component';
 import { LogoComponent } from 'app/components/common/logo/logo.component';
 import { SocialButtonComponent } from 'app/components/common/social-button/social-button.component';
 import { MiniListComponent } from './components/mini-list/mini-list.component';
-import { InsuranceCardComponent } from './modals/insurance-card/insurance-card.component';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
-import { ExampleTableComponent } from './example-table/example-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -54,19 +49,14 @@ const config = {
     HomeComponent,
     InsuranceManagerComponent,
     NoAccessComponent,
-    TestTableComponent,
-    SelectModalComponent,
-    ListModalComponent,
     HeaderComponent,
     FooterComponent,
     LogoComponent,
     SocialButtonComponent,
     MiniListComponent,
-    InsuranceCardComponent,
     ProductsTableComponent,
-    ExampleTableComponent,
     FavouritesModalComponent,
-    InputComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
@@ -81,10 +71,10 @@ const config = {
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,
+    MatSortModule
   ],
   providers: [],
-  entryComponents: [SelectModalComponent, ListModalComponent, FavouritesModalComponent],
+  entryComponents: [FavouritesModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsViews } from 'app/components/products-table/products-views';
+import { ProductsViews } from 'app/models/product-views.model';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { ProductsService } from 'app/services/products/products.service';
 @Component({
