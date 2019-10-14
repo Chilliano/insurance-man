@@ -34,8 +34,13 @@ body {
         border-bottom-right-radius: $border-radius;
       }
     }
+
     .mat-row {
       background-color: rgba(133, 20, 75, 0.089);
+      > th,
+      > td {
+        font-size: 1.4rem;
+      }
       &:nth-child(even) {
         background-color: rgba(133, 20, 75, 0.212);
       }
@@ -48,15 +53,21 @@ body {
 }
 
 ::ng-deep {
+  .container.mat-card {
+    margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 1rem 2rem;
+    margin: 1rem 0;
+  }
   .mat-dialog-container {
-    max-width: 90vw;
-    max-height: 80vh !important;
-    min-width: 70vw;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) !important;
-    transition: all 0.5s ease;
+    // max-width: 90vw;
+    // max-height: 80vh !important;
+    // min-width: 70vw;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%) !important;
+    // transition: all 0.5s ease;
   }
 
   .mat-simple-snackbar {
@@ -69,7 +80,7 @@ body {
 
   .red-snackbar {
     min-width: unset;
-    border: 2px solid ghostwhite;
+    border: 0.2rem solid ghostwhite;
     background: $red !important;
     color: ghostwhite;
     text-align: center;
@@ -89,5 +100,9 @@ body {
         height: 60px !important;
       }
     }
+  }
+
+  button {
+    padding: 0.2rem 0.4rem !important;
   }
 }

@@ -6,9 +6,7 @@
   box-sizing: border-box;
 }
 
-html,
-td.mat-cell,
-th.header {
+html {
   font-size: 75%; // 1 rem = 10px;10px/16px = 62.5%;
   @include respond(desktop) {
     font-size: 75%; // 1 rem = 12; 12/16px = 75%;

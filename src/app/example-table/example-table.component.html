@@ -1,6 +1,10 @@
 <div class="container--filters">
-  <div class="title">Filter Results By...</div>
-  <div class="container--filters__mobile">
+  <div class="title">
+    {{
+      productsViews === 'favourites' ? '' : 'Filter Results By...'
+    }}
+  </div>
+  <div class="container--filters__phone">
     <div class="dropdown">
       <mat-form-field>
         <mat-label>Filter By...</mat-label>
@@ -23,7 +27,9 @@
       ></app-input>
     </div>
   </div>
-  selected filter is {{ selectedFilter[0].value }}
+</div>
+
+<div class="container--buttons">
   <button
     *ngIf="productsViews !== 'favourites'"
     class="btn btn-dark"
@@ -129,7 +135,6 @@
       class="empty"
     >
       <img [src]="imgNoData" />
-      <span> {{ 'noRecordsFound' }}. </span>
     </div>
     <mat-paginator
       [length]="dataSource.data?.length"

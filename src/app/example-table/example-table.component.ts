@@ -37,11 +37,13 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
 
   displayedColumns = [];
   favourites: ProductModel[] = [];
-  
-  selection = new SelectionModel<ProductModel>(true, []);
 
   // filters
   filterControl = new FormControl('');
+  // nameFilter = new FormControl('');
+  // brandFilter = new FormControl('');
+  // kindFilter = new FormControl('');
+  // priceFilter = new FormControl('');
 
   filters: FilterModel[] = [
     { value: 'name', viewValue: 'Name' },
@@ -51,7 +53,7 @@ export class ExampleTableComponent implements AfterViewInit, OnInit {
   ];
 
   selectedFilter: FilterModel[] = [{ value: 'name', viewValue: 'Name' }];
-
+  selection = new SelectionModel<ProductModel>(true, []);
 
   constructor(
     private productsService: ProductsService,
